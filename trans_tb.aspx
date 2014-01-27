@@ -33,17 +33,18 @@
             brwCount2 = 15;
             aPop = new Array(['txtStraddrno','lblStraddr','addr2','noa,addr','txtStraddrno,txtStraddr','addr2_b.aspx']
                 ,['txtEndaddrno','lblEndaddr','addr2','noa,addr','txtEndaddrno,txtEndaddr','addr2_b.aspx']
-                ,['txtCustno', '', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-                ,['txtDriverno', '', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
-                ,['txtCarno', '', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']);
-            //不能彈出瀏覽視窗
-         /*   aPop = new Array(['txtCarno', '', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']
-            ,['txtCustno', '', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-            ,['txtDriverno', '', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
-            ,['txtUccno', '', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx']
-            ,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-            ,['txtStraddrno', '', 'addr', 'noa,addr,productno,product,salesno,sales', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtSalesno,txtSales,txtStraddr', 'addr_b.aspx'] 
-            );*/
+                ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
+                ,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+                ,['txtCarno', 'lblCarno', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']
+                ,['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
+           
+            function sum() {
+                if(q_cur!=1 && q_cur!=2)
+                    return;
+                $('#txtMount').val(q_add(q_float('txtInmount'),q_float('txtPton')));
+                $('#txtMount2').val(q_add(q_float('txtOutmount'),q_float('txtPton2')));
+            }
+            
             function currentData() {
             }
             currentData.prototype = {
@@ -99,16 +100,16 @@
                 q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 $('#btnIns').val($('#btnIns').val() + "(F8)");
                 $('#btnOk').val($('#btnOk').val() + "(F9)");
+                
+                bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd]];
                 q_mask(bbmMask);
-         
-                /*$("#cmbCalctype").focus(function() {
-                    var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
-                    $("#cmbCalctype").attr('size', len + "");
-                    $(this).data('curValue',$(this).val());
-                }).blur(function() {
-                    $("#cmbCalctype").attr('size', '1');
-                });*/
-                     
+                //櫃號異常就變色
+                $('#txtCaseno').change(function(e){
+                    $(this).css('color',$.trim($(this).val()).length==0||checkCaseno($.trim($(this).val()))?'black':'darkred');
+                });
+                $('#txtCaseno2').change(function(e){
+                    $(this).css('color',$.trim($(this).val()).length==0||checkCaseno($.trim($(this).val()))?'black':'darkred');
+                });
                 $('#txtInmount').change(function(){
                     sum();
                 });
@@ -128,12 +129,6 @@
                     sum();
                 });
                 q_xchgForm();
-            }
-
-            function sum() {
-                if(q_cur!=1 && q_cur!=2)
-                    return;
-                
             }
 
             function q_boxClose(s2) {
@@ -254,6 +249,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                $('#txtCaseno').css('color',$.trim($('#txtCaseno').val()).length==0||checkCaseno($.trim($('#txtCaseno').val()))?'black':'darkred');
+                $('#txtCaseno2').css('color',$.trim($('#txtCaseno2').val()).length==0||checkCaseno($.trim($('#txtCaseno2').val()))?'black':'darkred');
             }
 
             function readonly(t_para, empty) {
@@ -312,6 +309,18 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            function checkCaseno(string){
+                var key ={0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,A:10,B:12,C:13,D:14,E:15,F:16,G:17,H:18,I:19,J:20,K:21,L:23,M:24,N:25,O:26,P:27,Q:28,R:29,S:30,T:31,U:32,V:34,W:35,X:36,Y:37,Z:38};
+                if((/^[A-Z]{4}[0-9]{7}$/).test(string)){
+                    var value = 0;
+                    for(var i =0;i<string.length-1;i++){
+                        value+= key[string.substring(i,i+1)]*Math.pow(2,i);
+                    }
+                    return Math.floor(q_add(q_div(value,11),0.09)*10%10)==parseInt(string.substring(10,11));
+                }else{
+                    return false;
+                }
             }
         </script>
         <style type="text/css">
@@ -445,6 +454,8 @@
                         <td align="center" style="width:60px; color:black;"><a id="vewFill"> </a></td>
                         <td align="center" style="width:60px; color:black;"><a id="vewMount"> </a></td>
                         <td align="center" style="width:60px; color:black;"><a id="vewMount2"> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a id="vewBoat"> </a></td>
+                        <td align="center" style="width:120px; color:black;"><a id="vewShip"> </a></td>
                         <td align="center" style="width:120px; color:black;"><a id="vewPo"> </a></td>
                         <td align="center" style="width:120px; color:black;"><a id="vewCaseno1"> </a></td>
                         <td align="center" style="width:120px; color:black;"><a id="vewCaseno2"> </a></td>
@@ -462,6 +473,8 @@
                         <td id="fill" style="text-align: center;">~fill</td>
                         <td id="mount" style="text-align: right;">~mount</td>
                         <td id="mount2" style="text-align: right;">~mount2</td>
+                        <td id="boatname" style="text-align: left;">~boatname</td>
+                        <td id="ship" style="text-align: left;">~ship</td>
                         <td id="po" style="text-align: left;">~po</td>
                         <td id="caseno" style="text-align: left;">~caseno</td>
                         <td id="caseno2" style="text-align: left;">~caseno2</td>
@@ -535,6 +548,8 @@
                             <input id="txtInmount"  type="text" class="txt c1 num"/>
                             <input id="txtMount"  type="text" style="display:none;"/>
                         </td>
+                        <td><span> </span><a id="lblUnit" class="lbl"> </a></td>
+                        <td><input id="txtUnit"  type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblPton" class="lbl"> </a></td>
                         <td><input id="txtPton"  type="text" class="txt c1 num"/></td>
                     </tr>
@@ -544,7 +559,9 @@
                             <input id="txtOutmount"  type="text" class="txt c1 num"/>
                             <input id="txtMount2"  type="text" style="display:none;"/>
                         </td>
-                         <td><span> </span><a id="lblPton2" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblUnit2" class="lbl"> </a></td>
+                        <td><input id="txtUnit2"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblPton2" class="lbl"> </a></td>
                         <td><input id="txtPton2"  type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
@@ -553,6 +570,15 @@
                             <input id="txtCaseno"  type="text" style="float:left;width:50%;"/>
                             <input id="txtCaseno2"  type="text" style="float:left;width:50%;"/>
                         </td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblBoat" class="lbl"> </a></td>
+                        <td colspan="2">
+                            <input id="txtBoatno"  type="text" style="float:left;width:50%;"/>
+                            <input id="txtBoat"  type="text" style="float:left;width:50%;"/>
+                        </td>
+                        <td><span> </span><a id="lblShip" class="lbl"> </a></td>
+                        <td colspan="2"><input id="txtShip" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblPo" class="lbl"> </a></td>

@@ -119,36 +119,10 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                Unlock();
+                Unlock(1);
             }
             function btnOk() {
                 Lock(1,{opacity:0});
-                //check bbs
-                var tmpDriver = new Array();
-                var tmpDriver2 = new Array();
-                var tmpCust = new Array();
-                var tmpTgg = new Array();
-                
-                for(var i=0;i<q_bbsCount;i++){
-                    if($.trim($('#txtDatea_'+i).val()).length>0){
-                        if($.trim($('#txtDriverunit_'+i).val()).length>0)
-                            tmpDriver.add({date:$.trim($('#txtDatea_'+i).val()),unit:$.trim($('#txtDriverunit_'+i).val())});
-                        if($.trim($('#txtDriverunit2_'+i).val()).length>0)
-                            tmpDriver2.add({date:$.trim($('#txtDatea_'+i).val()),unit:$.trim($('#txtDriverunit2_'+i).val())});    
-                        if($.trim($('#txtCustunit_'+i).val()).length>0)
-                            tmpCust.add({date:$.trim($('#txtDatea_'+i).val()),unit:$.trim($('#txtCustunit_'+i).val())});
-                        if($.trim($('#txtTggunit_'+i).val()).length>0)
-                            tmpTgg.add({date:$.trim($('#txtDatea_'+i).val()),unit:$.trim($('#txtTggunit_'+i).val())});
-                    }
-                }
-                for(var i=0;i<tmpDriver.length;i++){
-                    for(var j=i+1;j<tmpDriver.length;j++){
-                        if(tmpDriver[i].date==tmpDriver[j].date && tmpDriver[i].unit==tmpDriver[j].unit){
-                            alert(tmpDriver[i].date+' 計費方式【'+tmpDriver[i].unit+'】重覆。');
-                        }
-                    }
-                }
-                
                 $('#txtNoa').val($.trim($('#txtNoa').val()));       
                 if(q_cur==1){
                     t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
