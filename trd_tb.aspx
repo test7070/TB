@@ -21,7 +21,7 @@
 			q_tables = 's';
 			var q_name = "trd";
 			var q_readonly = ['txtTax', 'txtNoa', 'txtMoney', 'txtTotal', 'txtWorker2', 'txtWorker', 'txtStraddr', 'txtEndaddr', 'txtVccano', 'txtCustchgno', 'txtAccno', 'txtAccno2', 'txtYear2', 'txtYear1'];
-			var q_readonlys = ['txtTranno', 'txtTrannoq', 'txtTrandate', 'txtStraddr', 'txtProduct', 'txtCarno', 'txtCustorde', 'txtCaseno', 'txtMount', 'txtPrice', 'txtTotal', 'txtTranmoney'];
+			var q_readonlys = ['txtTranno', 'txtTrannoq', 'txtTrandate', 'txtStraddr', 'txtEndaddr', 'txtProduct', 'txtCarno', 'txtCustorde', 'txtCaseno', 'txtMount', 'txtPrice', 'txtTotal', 'txtTranmoney'];
 			var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
 			var bbsNum = [['txtTranmoney', 10, 0, 1], ['txtOverweightcost', 10, 0, 1], ['txtOthercost', 10, 0, 1], ['txtMount', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1]];
 			var bbmMask = [];
@@ -127,6 +127,7 @@
 						t_where += t_po;
 					}
 					t_where = "where=^^" + t_where + "^^;order=^^a.trandate,a.noa^^";
+					//一次最多匯入500筆
 					q_gt('trd_tran_tb', t_where, 500, 0, 0, "", r_accy);
 				});
 				$("#btnCustchg").click(function(e) {
@@ -326,11 +327,11 @@
 					Unlock(1);
 					return;
 				}
-				if ($('#txtDatea').val().substring(0, 3) != r_accy) {
+				/*if ($('#txtDatea').val().substring(0, 3) != r_accy) {
 					alert('年度異常錯誤，請切換到【' + $('#txtDatea').val().substring(0, 3) + '】年度再作業。');
 					Unlock(1);
 					return;
-				}
+				}*/
 				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
 					alert(q_getMsg('lblMon') + '錯誤。');
 					Unlock(1);
@@ -408,6 +409,12 @@
 			function sum() {
 				if (!(q_cur == 1 || q_cur == 2))
 					return;
+					
+				var t_money =0;
+				for ( i = 0; i < q_bbsCount; i++) {
+				    t_money = q_add(t_money,   q_float('txtTotal_'+i));
+				}   
+				$('#txtMoney').val(t_money);
 				//小數 可能會有問題需注意
 				/* var t_money = 0,t_mount = 0;
 				 for ( i = 0; i < q_bbsCount; i++) {
@@ -745,7 +752,7 @@
                         <input id="txtMon" type="text"  class="txt c1"/>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display:none;">
                         <td><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
                         <td colspan="3">
                         <input id="txtBoatno" type="text" style="float:left; width:30%;"/>
