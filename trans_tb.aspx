@@ -33,6 +33,7 @@
             brwCount2 = 15;
             aPop = new Array(['txtStraddrno','lblStraddr','addr2','noa,addr','txtStraddrno,txtStraddr','addr2_b.aspx']
                 ,['txtEndaddrno','lblEndaddr','addr2','noa,addr','txtEndaddrno,txtEndaddr','addr2_b.aspx']
+                ,['txtUccno','lblProductno','ucc','noa,product','txtUccno,txtProduct','ucc_b.aspx']
                 ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
                 ,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
                 ,['txtCarno', 'lblCarno', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']
