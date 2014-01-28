@@ -488,14 +488,6 @@
                 width: 100%;
                 float: left;
             }
-            .txt.c2 {
-                width: 40%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 60%;
-                float: left;
-            }
             .txt.num {
                 text-align: right;
             }
@@ -582,19 +574,19 @@
                         <td class="tdA"><span class="schema"> </span></td>
                         <td class="tdZ"><span class="schema"> </span></td>
                     </tr>
-                    <tr class="tr1">
-                        <td class="td1"><span> </span><a id="lblDate2" class="lbl"> </a></td>
-                        <td class="td2">
+                    <tr>
+                        <td><span> </span><a id="lblDate2" class="lbl"> </a></td>
+                        <td>
                         <input id="txtDate2" type="text"  class="txt c1" />
                         </td>
 
                         <td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
                         <td><select id="cmbCarteamno" class="txt c1">  </select></td>
-                        <td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
-                        <td class="td5" colspan="3">
-                        <input id="txtBdate" type="text"  class="txt c2"/>
+                        <td colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
+                        <td colspan="3">
+                        <input id="txtBdate" type="text" class="txt" style="width:40%;"/>
                         <span id="sign_2" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-                        <input id="txtEdate" type="text"  class="txt c2"/>
+                        <input id="txtEdate" type="text"  class="txt" style="width:40%;"/>
                         </td>
                         <td><input type="button" id="btnTrans" class="txt c1"/></td>
                         <td class="tdZ"> </td>
@@ -606,20 +598,13 @@
                         </td>
                         <td class="tdZ"> </td>
                     </tr>
-                    <tr class="tr2">
-                        <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-                        <td class="td2" colspan="2">
-                        <input id="txtNoa" type="text" class="txt c1"/>
-                        </td>
-
-                        <td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
-                        <td class="td7">
-                        <input id="txtCarno" type="text"  class="txt c1"/>
-                        </td>
-                        <td class="td8"><span> </span><a id="lblDriver" class="lbl"> </a></td>
-                        <td class="td9" colspan="2">
-                        <input id="txtDriverno" type="text"  class="txt c2"/>
-                        <input id="txtDriver" type="text"  class="txt c3"/>
+                    <tr>
+                        <td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+                        <td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblDriver" class="lbl"> </a></td>
+                        <td colspan="2">
+                            <input id="txtDriverno" type="text"  class="txt" style="width:50%;"/>
+                            <input id="txtDriver" type="text"  class="txt" style="width:50%;"/>
                         </td>
                     </tr>   
                     <tr>
@@ -629,16 +614,16 @@
                         <td><input id="txtMon" type="text"  class="txt c1"/></td>
                     </tr>       
                     <tr class="tr4">
-                        <td class="td1"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
-                        <td class="td2"  colspan="2">
+                        <td><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
+                        <td colspan="2">
                         <input id="txtRc2ano" type="text" class="txt c1" />
                         </td>
-                        <td class="td4"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
-                        <td class="td5">
+                        <td><span> </span><a id="lblPaydate" class="lbl"> </a></td>
+                        <td>
                         <input id="txtPaydate" type="text" class="txt c1" />
                         </td>
-                        <td class="td6"><span> </span><a id="lblCheckno" class="lbl"> </a></td>
-                        <td class="td7" colspan="2">
+                        <td><span> </span><a id="lblCheckno" class="lbl"> </a></td>
+                        <td colspan="2">
                         <input id="txtCheckno" type="text" class="txt c1" />
                         </td>
                     </tr>
@@ -655,26 +640,22 @@
                     <tr>
                         <td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
                         <td colspan="3">
-                            <input id="txtTggno" type="text"  class="txt c2"/>
-                            <input id="txtTggcomp" type="text"  class="txt c3"/>
+                            <input id="txtTggno" type="text"  class="txt" style="width:40%;"/>
+                            <input id="txtTggcomp" type="text" class="txt" style="width:60%;"/>
                         </td>
                         <td><span> </span><a id="lblUnopay" class="lbl"> </a></td>
                         <td><input id="txtUnopay" type="text" class="txt c1 num" /></td>
                         <td><span> </span><a id="lblTotal" class="lbl"> </a></td>
                         <td><input id="txtTotal" type="text" class="txt c1 num" /></td>
-                        <!--
-                        <td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-                        <td><input id="txtAccno" type="text"  class="txt c1"/></td>
-                        -->
                     </tr>
-                    <tr class="tr7">
-                        <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-                        <td class="td2" colspan="6"><input id="txtMemo" type="text" class="txt c1" /></td>
-                        <td class="td8"> </td>
-                        <td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-                        <td class="tdA"><input id="txtWorker" type="text" class="txt c1" /></td>
+                    <tr>
+                        <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+                        <td colspan="6"><input id="txtMemo" type="text" class="txt c1" /></td>
+                        <td> </td>
+                        <td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+                        <td><input id="txtWorker" type="text" class="txt c1" /></td>
                     </tr>
-                    <tr class="tr8">
+                    <tr>
                         <td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
                         <td><input id="txtAccno" type="text"  class="txt c1"/></td>
                         <td><input id="txtYear1" type="text"  class="txt c1"/></td>
