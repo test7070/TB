@@ -613,7 +613,7 @@
                         <td><span> </span><a id="lblMon" class="lbl"> </a></td>
                         <td><input id="txtMon" type="text"  class="txt c1"/></td>
                     </tr>       
-                    <tr class="tr4">
+                    <tr>
                         <td><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
                         <td colspan="2">
                         <input id="txtRc2ano" type="text" class="txt c1" />
@@ -627,7 +627,7 @@
                         <input id="txtCheckno" type="text" class="txt c1" />
                         </td>
                     </tr>
-                    <tr class="tr5">
+                    <tr>
                         <td><span> </span><a id="lblMoney" class="lbl"> </a></td>
                         <td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
                         <td><span> </span><a id="lblPlusmoney" class="lbl"> </a></td>
@@ -679,10 +679,9 @@
                     </td>
                     <td align="center" style="width:20px;"> </td>
                     <td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
-
                     <td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
-
                     <td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
+                    <td align="center" style="width:200px;"><a id='lbEndaddr_s'> </a></td>
                     <td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
@@ -697,85 +696,33 @@
                     <td align="center" style="width:100px"><a id='lblCasetype_s'> </a></td>
                     <td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
                     <td align="center" style="width:150px;"><a id='lblCaseno2_s'> </a></td>
-                    <td align="center" style="width:100px;"><a id='lblBoat_s'> </a></td>
-                    <td align="center" style="width:100px;"><a id='lblBoatname_s'> </a></td>
-                    <td align="center" style="width:100px;"><a id='lblShip_s'> </a></td>
-                    <td align="center" style="width:100px;"><a id='lblOverweightcost_s'> </a></td>
-                    <td align="center" style="width:100px;"><a id='lblOthercost_s'> </a></td>
-                    <td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>
                 </tr>
-                <tr  style='background:#cad3ff;'>
+                <tr style='background:#cad3ff;'>
                     <td align="center">
-                    <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-                    <input id="txtNoq.*" type="text" style="display: none;" />
+                        <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+                        <input id="txtNoq.*" type="text" style="display: none;"/>
+                        <input id="txtTranaccy.*" type="text" style="display: none;"/>
+                        <input id="txtTrannoq.*" type="text" style="display: none;"/>
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                    <td ><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
-                    <td ><input type="text" id="txtComp.*" style="width:95%;" /></td >
-                    <td >
-                    <input type="text" id="txtStraddr.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtProduct.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtTolls.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtMemo.*" style="width:95%;" />
-                    </td>
-                    <td >
-                        <input type="text" id="txtTranno.*" style="float:left; width: 90%;"/>
-                        <input type="text" id="txtTrannoq.*" style="float:left;visibility: hidden; width:1%"/>
-                    </td>
-                    <td >
-                    <input type="text" id="txtRs.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtPaymemo.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtFill.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtCasetype.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtCaseno.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtCaseno2.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtBoat.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtBoatname.*" style="width:95%;"/>
-                    </td>
-                    <td >
-                    <input type="text" id="txtShip.*" style="width:95%;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtOverweightcost.*" style="width:95%;text-align: right;"/>
-                    </td>
-                    <td >
-                    <input type="text" id="txtOthercost.*" style="width:95%;text-align: right;" />
-                    </td>
-                    <td >
-                    <input type="text" id="txtOrdeno.*" style="width:95%;" />
-                    </td>
+                    <td><input type="text" id="txtTrandate.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtComp.*" style="width:95%;"/></td >
+                    <td><input type="text" id="txtStraddr.*" style="width:95%;" /></td>
+                    <td><input type="text" id="txtEndaddr.*" style="width:95%;" /></td>
+                    <td><input type="text" id="txtProduct.*" style="width:95%;" /></td>
+                    <td><input type="text" id="txtMount.*" style="width:95%;text-align: right;" /></td>
+                    <td><input type="text" id="txtPrice.*" style="width:95%;text-align: right;" /></td>
+                    <td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;"/></td>
+                    <td><input type="text" id="txtMoney.*" style="width:95%;text-align: right;"/></td>
+                    <td><input type="text" id="txtTolls.*" style="width:95%;text-align: right;"/></td>
+                    <td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtTranno.*" style="float:left;width: 95%;"/></td>
+                    <td><input type="text" id="txtRs.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtPaymemo.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtFill.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtCasetype.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtCaseno.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtCaseno2.*" style="width:95%;"/></td>                   
                 </tr>
             </table>
         </div>

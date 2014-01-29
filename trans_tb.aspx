@@ -87,7 +87,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt('calctype2', '', 0, 0, 0, 'transInit');
+                q_gt('calctype2', '', 0, 0, 0, 'transInit1');
             });
             function main() {
                 if (dataErr) {
@@ -152,6 +152,17 @@
                         q_cmbParse("cmbCalctype", t_item);
                         if(abbm[q_recno]!=undefined)
                             $("#cmbCalctype").val(abbm[q_recno].calctype);                 
+                        q_gt('cartram', '', 0, 0, 0, 'transInit2');
+                        break;
+                    case 'transInit2':
+                        var as = _q_appendData("cartram","",true);
+                        var t_item = "";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                        }
+                        q_cmbParse("cmbCarteamno", t_item);
+                        if(abbm[q_recno]!=undefined)
+                            $("#cmbCalctype").val(abbm[q_recno].calctype);
                         q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
                         break;
                     case q_name:
