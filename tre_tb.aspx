@@ -45,7 +45,7 @@
             function tre() {}
             tre.prototype = {
                 isLoad: false,
-                carchgno : new  Array()
+                carchgno : new  Array();
             }
             
             $(document).ready(function() {
@@ -286,7 +286,7 @@
                 var t_money = 0, t_total = 0, t_tolls = 0;
                 for( i = 0; i < q_bbsCount; i++) {
                     t_money += q_float('txtMoney_'+i);
-                    t_tolls += q_float('txtTolls_'+i);
+                    //t_tolls += q_float('txtTolls_'+i);
                 }
                 t_plusmoney = q_float('txtPlusmoney');
                 t_minusmoney = q_float('txtMinusmoney');   
