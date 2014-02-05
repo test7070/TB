@@ -68,7 +68,7 @@
             function mainPost() {
                 q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['textDatea', r_picd],['textBBdate', r_picd],['textEEdate', r_picd],['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 
                 q_gt('carteam', '', 0, 0, 0, "");
