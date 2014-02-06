@@ -21,7 +21,7 @@
 			q_tables = 's';
 			var q_name = "tre";
 			var q_readonly = ['txtAccno', 'txtNoa', 'txtMoney', 'txtTotal', 'txtCarchgno', 'txtWorker2', 'txtWorker', 'txtRc2ano', 'txtPaydate', 'txtPlusmoney', 'txtMinusmoney', 'txtAccno', 'txtAccno2', 'txtYear2', 'txtYear1'];
-			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
+			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq', 'txtTranaccy'];
 			var bbmNum = [['txtMoney', 10, 0], ['txtTotal', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
 			var bbsNum = [['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtDiscount', 10, 3], ['txtMoney', 10, 0]];
 			var bbmMask = [];
@@ -212,10 +212,20 @@
 				q_box('tre_s.aspx', q_name + '_s', "530px", "530px", q_getMsg("popSeek"));
 			}
 			function bbsAssign() {
-				for (var ix = 0; ix < q_bbsCount; ix++) {
-					$('#lblNo_' + ix).text(ix + 1);
-				}
-				_bbsAssign();
+				for (var j = 0; j < q_bbsCount; j++) {
+                    $('#lblNo_' + j).text(j + 1);
+                    if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+                        $('#txtTranno_' + j).bind('contextmenu', function(e) {
+                            /*滑鼠右鍵*/
+                            e.preventDefault();
+                            var n = $(this).attr('id').replace('txtTranno_', '');
+                            var t_accy = $('#txtTranaccy_' + n).val();
+                            q_box("trans_tb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $(this).val() + "';" + t_accy, 'trans', "95%", "95%", q_getMsg("popTrans"));
+                            
+                        });
+                    }
+                }
+                _bbsAssign();
 			}
 			function btnIns() {
 				_btnIns();

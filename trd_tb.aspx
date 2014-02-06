@@ -21,7 +21,7 @@
 			q_tables = 's';
 			var q_name = "trd";
 			var q_readonly = ['txtTax', 'txtNoa', 'txtMoney', 'txtTotal', 'txtWorker2', 'txtWorker', 'txtStraddr', 'txtEndaddr', 'txtVccano', 'txtCustchgno', 'txtAccno', 'txtAccno2', 'txtYear2', 'txtYear1'];
-			var q_readonlys = ['txtTranno', 'txtTrannoq', 'txtTrandate', 'txtStraddr', 'txtEndaddr', 'txtProduct', 'txtCarno', 'txtCustorde', 'txtCaseno', 'txtMount', 'txtPrice', 'txtTotal', 'txtTranmoney'];
+			var q_readonlys = ['txtTranno', 'txtTrannoq', 'txtTrandate', 'txtStraddr', 'txtEndaddr', 'txtProduct', 'txtCarno', 'txtCustorde', 'txtCaseno', 'txtMount', 'txtPrice', 'txtTotal', 'txtTranmoney','txtTranaccy'];
 			var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
 			var bbsNum = [['txtTranmoney', 10, 0, 1], ['txtOverweightcost', 10, 0, 1], ['txtOthercost', 10, 0, 1], ['txtMount', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1]];
 			var bbmMask = [];
@@ -358,7 +358,6 @@
 				q_box('trd_tb_s.aspx', q_name + '_s', "600px", "530px", q_getMsg("popSeek"));
 			}
 			function bbsAssign() {
-				_bbsAssign();
 				for (var j = 0; j < q_bbsCount; j++) {
 					$('#lblNo_' + j).text(j + 1);
 					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -372,6 +371,7 @@
 						});
 					}
 				}
+				_bbsAssign();
 			}
 			function btnIns() {
 				_btnIns();
