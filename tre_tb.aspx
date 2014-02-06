@@ -1,429 +1,353 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
-        <title> </title>
-        <script src="../script/jquery.min.js" type="text/javascript"> </script>
-        <script src='../script/qj2.js' type="text/javascript"> </script>
-        <script src='qset.js' type="text/javascript"> </script>
-        <script src='../script/qj_mess.js' type="text/javascript"> </script>
-        <script src='../script/mask.js' type="text/javascript"> </script>
-        <script src="../script/qbox.js" type="text/javascript"> </script>
+        <title></title>
+        <script src="../script/jquery.min.js" type="text/javascript"></script>
+        <script src='../script/qj2.js' type="text/javascript"></script>
+        <script src='qset.js' type="text/javascript"></script>
+        <script src='../script/qj_mess.js' type="text/javascript"></script>
+        <script src='../script/mask.js' type="text/javascript"></script>
+        <script src="../script/qbox.js" type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
         <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-        <script src="css/jquery/ui/jquery.ui.core.js"> </script>
-        <script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-        <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+        <script src="css/jquery/ui/jquery.ui.core.js"></script>
+        <script src="css/jquery/ui/jquery.ui.widget.js"></script>
+        <script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
         <script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
-            q_tables = 's';
-            var q_name = "tre";
-            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtCarchgno','txtWorker2','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney','txtAccno','txtAccno2','txtYear2','txtYear1'];
-            var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
-            var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0]];
-            var bbmMask = [];
-            var bbsMask = [];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'Datea';
-            q_desc = 1;
-            aPop = new Array(
-                ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
-                ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'],
-                ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-                ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
-                ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
-
-            q_xchg = 1;
-            brwCount2 = 20;
-
-            function tre() {}
-            tre.prototype = {
-                isLoad: false,
-                carchgno : new  Array()
-            };
-            
-            $(document).ready(function() {
-                q_bbsShow = -1;
-                bbmKey = ['noa'];
-                bbsKey = ['noa', 'noq'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
-            });
-            function main() {
-                if(dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(0);
-                $('#txtBcarno').val('0');
-                $('#txtEcarno').val('zz');
-            }
-
-            function mainPost() {
-                q_modiDay= q_getPara('sys.modiday2');  /// 若未指定， d4=  q_getPara('sys.modiday'); 
-                q_getFormat();
-                bbmMask = [['textDatea', r_picd],['textBBdate', r_picd],['textEEdate', r_picd],['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
-                q_mask(bbmMask);
-                
-                q_gt('carteam', '', 0, 0, 0, "");
-                $('#lblAccno').click(function () {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtYear1').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
-                });
-                $('#lblAccno2').click(function () {
-                    q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtYear2').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
-                });
-                $('#txtPlusmoney').change(function(e) {
-                    sum();
-                });
-                $('#txtMinusmoney').change(function(e) {
-                    sum();
-                });
-                $('#txtUnopay').change(function(e) {
-                    sum();
-                });
-                /*$('#btnTrans').click(function(e) {
-                    if(q_cur != 1 && q_cur != 2){
-                        if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
-                            alert(q_getMsg('lblDate2')+'年度異常!');
-                            return;
-                        }
-                        Lock(1,{opacity:0});
-                        q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
-                    }
-                });*/
-                $("#btnCarchg").click(function(e) {
-                    var t_carchgno='';
-                    if(curData.isLoad){
-                        for(var i=0;i<curData.carchgno.length;i++)
-                            t_carchgno += (t_carchgno.length>0?',':'')+curData.carchgno[i];
-                        t_carchgno='carchgno='+t_carchgno;
-                    }
-                    t_where = "  carno='" + $('#txtCarno').val() + "' and driverno='"+ $('#txtDriverno').val() +"' and  (treno='" + $('#txtNoa').val() + "' or len(isnull(treno,''))=0) ";
-                    q_box("carchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_carchgno + ";", 'carchg', "95%", "650px", q_getMsg('popCarchg'));
-                });  
-                //---------------------------------------------------------------
-                $('#textBBdate').datepicker();
-                $('#textEEdate').datepicker();
-                $('#btnTrans').click(function(e) {
-                    $('#divExport').toggle();
-                });
-                $('#btnDivexport').click(function(e) {
-                    $('#divExport').hide();
-                });
-                $('#btnExport').click(function(e) {
-                    var t_datea = $('#textDatea').val();
-                    var t_bdate = $('#textBBdate').val();
-                    var t_edate = $('#textEEdate').val();
-                    if (t_datea.length > 0 && t_bdate.length > 0 && t_edate.length > 0) {
-                        Lock(1, {
-                            opacity : 0
-                        });
-                        q_func('qtxt.query.tre', 'tre.txt,tre_tb,' + encodeURI(r_userno)+ ';' + encodeURI(r_name)+ ';' + encodeURI(q_getPara('sys.key_tre')) + ';' + encodeURI(t_datea) + ';'+ encodeURI(t_bdate) + ';' + encodeURI(t_edate));
-                    } else
-                        alert('請輸入日期。');
-                });
-                $('#textBBdate').keydown(function(e){
-                   if(e.which==13)
-                        $('#textEEdate').focus();     
-                });            
-            }
-            
-            function q_funcPost(t_func, result) {
-                switch(t_func) {
-                    case 'qtxt.query.tre':
-                        var as = _q_appendData("tmp0", "", true, true);
-                        if(as[0]!=undefined){
-                            for(var i=0;i<as.length;i++){
-                                q_func('tre_post.post', as[i].datea.substring(0,3) + ',' + as[i].noa + ',0');// post 0
-                                q_func('tre_post.post', as[i].datea.substring(0,3) + ',' + as[i].noa + ',1');// post 1
-                            }
-                        }
-                        location.reload();
-                        break;
-                }
-
-            }
-
-           function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case 'carchg':
-                        if (b_ret != null) {
-                            var t_where='1!=1';
-                            curData.isLoad = true;
-                            curData.carchgno = new Array();
-                            for (var i = 0; i < b_ret.length; i++) {
-                                curData.carchgno.push(b_ret[i].noa);
-                                t_where +=" or noa='"+b_ret[i].noa+"'";
-                            }
-                            q_gt('carchg', "where=^^"+t_where+"^^", 0, 0, 0, "");
-                        }
-                        break;
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                }
-                b_pop = '';
-            }
-
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'carteam':
-                        var as = _q_appendData("carteam", "", true);
-                        var t_item = "@";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
-                        }
-                        q_cmbParse("cmbCarteamno", t_item);
-                        if (abbm[q_recno] != undefined) {
-                            $("#cmbCarteamno").val(abbm[q_recno].carteamno);
-                        }
-                        q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
-                        break;
-                    case 'carchg':
-                        var as = _q_appendData("carchg", "", true);
-                        var t_plusmoney=0,t_minusmoney=0;
-                        for ( i = 0; i < as.length; i++) {
-                            t_plusmoney+=parseFloat(as[i].plusmoney);
-                            t_minusmoney+=parseFloat(as[i].minusmoney);
-                        }
-                        $('#txtPlusmoney').val(t_plusmoney);
-                        $('#txtMinusmoney').val(t_minusmoney);
-                        sum();
-                        break;
-                    case q_name:
-                        if(q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                }
-            }
-
-            function btnOk() {
-                $('#txtDatea').val($.trim($('#txtDatea').val()));
-                $('#txtUnopay').val(q_float('txtUnopay'));
-                if(q_float('txtUnopay') != 0 && $('#txtTggno').val() == ''){
-                    alert('請填寫' + q_getMsg('lblTgg'));
-                    return;
-                }
-                if (checkId($('#txtDatea').val())==0){
-                    alert(q_getMsg('lblDatea')+'錯誤。');
-                    return;
-                }
-                $('#txtPaydate').val($.trim($('#txtPaydate').val()));
-                if ($('#txtPaydate').val().length > 0 && checkId($('#txtPaydate').val())==0)
-                    alert(q_getMsg('lblPaydate')+'錯誤。');          
-                $('#txtMon').val($.trim($('#txtMon').val()));
-                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
-                    alert(q_getMsg('lblMon')+'錯誤。');
-                 if(q_cur==1)
-                $('#txtWorker').val(r_name);
-            else
-                $('#txtWorker2').val(r_name);
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                //-------------------------------------------------
-                //回寫CARCHG
-                if(curData.isLoad){
-                    var t_carchgno='';
-                    for(var i=0;i<curData.carchgno.length;i++)
-                        t_carchgno+=(t_carchgno.length>0?',':'')+curData.carchgno[i];
-                    $('#txtCarchgno').val(t_carchgno);
-                }
-                //-------------------------------------------------
-                sum();
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tre') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
-            }
-
-            function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)
-                    return;
-
-                q_box('tre_s.aspx', q_name + '_s', "530px", "530px", q_getMsg("popSeek"));
-            }
-
-            function bbsAssign() {
-                for(var ix = 0; ix < q_bbsCount; ix++) {
-                    $('#lblNo_'+ix).text(ix+1); 
-                }
-                _bbsAssign();
-            }
-
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
-                curData = new tre();
-            }
-
-            function btnModi() {
-                if(emp($('#txtNoa').val()))
-                    return;
-                if (q_chkClose())
-                    return;
-                _btnModi();
-                $('#txtDatea').focus();
-                curData = new tre();
-                sum();
-            }
-
-            function btnPrint() {
-                q_box('z_tre.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
-            }
-
-            function wrServer(key_value) {
-                var i;
-
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-            }
-
-            function bbsSave(as) {
-                if (!as['tranno']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-
-                q_nowf();
-                return true;
-            }
-
-            function sum() {
-                if(!(q_cur==1 || q_cur==2))
-                    return;
-                var t_money = 0, t_total = 0;
-                for( i = 0; i < q_bbsCount; i++) {
-                    t_money += q_float('txtMoney_'+i);
-                }
-                t_plusmoney = q_float('txtPlusmoney');
-                t_minusmoney = q_float('txtMinusmoney');   
-                t_unopay =  q_float('txtUnopay');       
-                t_total = t_money + t_plusmoney - t_minusmoney - t_unopay;
-                $('#txtMoney').val(t_money);
-                $('#txtTotal').val(t_total);
-            }
-
-            function refresh(recno) {
-                _refresh(recno);
-            }
-
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-                
-                if(q_cur == 1 || q_cur == 2) {
-                    $('#lblDate2').hide();
-                    $('#txtDate2').hide();
-                    $('#btnTrans').hide();
-                    $('#btnCarchg').removeAttr('disabled');
-                }else{
-                    $('#lblDate2').show();
-                    $('#txtDate2').show();
-                    $('#btnTrans').show();
-                    $('#btnCarchg').attr('disabled', 'disabled');
-                }
-                $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                $('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                $('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                $('#cmbCarteamno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-            }
-
-            function btnMinus(id) {
-                _btnMinus(id);
-                sum();
-            }
-
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
-
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
-
-            function btnSeek() {
-                _btnSeek();
-            }
-
-            function btnTop() {
-                _btnTop();
-            }
-
-            function btnPrev() {
-                _btnPrev();
-            }
-
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
-
-            function btnNext() {
-                _btnNext();
-            }
-
-            function btnNextPage() {
-                _btnNextPage();
-            }
-
-            function btnBott() {
-                _btnBott();
-            }
-
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
-
-            function btnDele() {
-                if (q_chkClose())
-                return;
-                _btnDele();
-            }
-
-            function btnCancel() {
-                _btnCancel();
-            }
-            function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-                    if(regex.test(str))
-                        return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                    str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-                    if(regex.test(str))
-                        return 4
-                }
-                return 0;//錯誤
-            }
+			this.errorHandler = null;
+			function onPageError(error) {
+				alert("An error occurred:\r\n" + error.Message);
+			}
+			q_tables = 's';
+			var q_name = "tre";
+			var q_readonly = ['txtAccno', 'txtNoa', 'txtMoney', 'txtTotal', 'txtCarchgno', 'txtWorker2', 'txtWorker', 'txtRc2ano', 'txtPaydate', 'txtPlusmoney', 'txtMinusmoney', 'txtAccno', 'txtAccno2', 'txtYear2', 'txtYear1'];
+			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
+			var bbmNum = [['txtMoney', 10, 0], ['txtTotal', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
+			var bbsNum = [['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtDiscount', 10, 3], ['txtMoney', 10, 0]];
+			var bbmMask = [];
+			var bbsMask = [];
+			q_sqlCount = 6;
+			brwCount = 6;
+			brwList = [];
+			brwNowPage = 0;
+			brwKey = 'Datea';
+			q_desc = 1;
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'], ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
+			q_xchg = 1;
+			brwCount2 = 20;
+			function tre() {
+			}
+			tre.prototype = {
+				isLoad : false, carchgno : new Array()
+			};
+			$(document).ready(function() {
+				q_bbsShow = -1;
+				bbmKey = ['noa'];
+				bbsKey = ['noa', 'noq'];
+				q_brwCount();
+				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
+			});
+			function main() {
+				if (dataErr) {
+					dataErr = false;
+					return;
+				}
+				mainForm(0);
+				$('#txtBcarno').val('0');
+				$('#txtEcarno').val('zz');
+			}
+			function mainPost() {
+				q_modiDay = q_getPara('sys.modiday2');
+				/// 若未指定， d4=  q_getPara('sys.modiday');
+				q_getFormat();
+				bbmMask = [['textDatea', r_picd], ['textBBdate', r_picd], ['textEEdate', r_picd], ['txtDatea', r_picd], ['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd]];
+				q_mask(bbmMask);
+				$('#lblAccno').click(function() {
+					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtYear1').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+				});
+				$('#lblAccno2').click(function() {
+					q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtYear2').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+				});
+				$('#txtPlusmoney').change(function(e) {
+					sum();
+				});
+				$('#txtMinusmoney').change(function(e) {
+					sum();
+				});
+				/*$('#btnTrans').click(function(e) {
+				 if(q_cur != 1 && q_cur != 2){
+				 if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
+				 alert(q_getMsg('lblDate2')+'年度異常!');
+				 return;
+				 }
+				 Lock(1,{opacity:0});
+				 q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+				 }
+				 });*/
+				$('#lblCarchgno').click(function(e) {
+					var t_where = "1!=1";
+					var t_carchgno = $('#txtCarchgno').val().split(',');
+					for (var i in t_carchgno) {
+						if (t_carchgno[i].length > 0)
+							t_where += " or noa='" + t_carchgno[i] + "'";
+					}
+					q_box("carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'carchg', "95%", "95%", q_getMsg("popCarchg"));
+				});
+				$("#btnCarchg").click(function(e) {
+					var t_carchgno = '';
+					if (curData.isLoad) {
+						for (var i = 0; i < curData.carchgno.length; i++)
+							t_carchgno += (t_carchgno.length > 0 ? ',' : '') + curData.carchgno[i];
+						t_carchgno = 'carchgno=' + t_carchgno;
+					}
+					t_where = " driverno='" + $('#txtDriverno').val() + "' and  (treno='" + $('#txtNoa').val() + "' or len(isnull(treno,''))=0) ";
+					q_box("carchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_carchgno + ";", 'carchg', "95%", "650px", q_getMsg('popCarchg'));
+				});
+				//---------------------------------------------------------------
+				$('#textBBdate').datepicker();
+				$('#textEEdate').datepicker();
+				$('#btnTrans').click(function(e) {
+					$('#divExport').toggle();
+				});
+				$('#btnDivexport').click(function(e) {
+					$('#divExport').hide();
+				});
+				$('#btnExport').click(function(e) {
+					var t_datea = $('#textDatea').val();
+					var t_bdate = $('#textBBdate').val();
+					var t_edate = $('#textEEdate').val();
+					if (t_datea.length > 0 && t_bdate.length > 0 && t_edate.length > 0) {
+						Lock(1, {
+							opacity : 0
+						});
+						q_func('qtxt.query.tre', 'tre.txt,tre_tb,' + encodeURI(r_userno) + ';' + encodeURI(r_name) + ';' + encodeURI(q_getPara('sys.key_tre')) + ';' + encodeURI(t_datea) + ';' + encodeURI(t_bdate) + ';' + encodeURI(t_edate));
+					} else
+						alert('請輸入日期。');
+				});
+				$('#textBBdate').keydown(function(e) {
+					if (e.which == 13)
+						$('#textEEdate').focus();
+				});
+			}
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'qtxt.query.tre':
+						var as = _q_appendData("tmp0", "", true, true);
+						if (as[0] != undefined) {
+							for (var i = 0; i < as.length; i++) {
+								q_func('tre_post.post', as[i].noa.substring(2, 5) + ',' + as[i].noa + ',0');
+								// post 0
+								q_func('tre_post.post', as[i].noa.substring(2, 5) + ',' + as[i].noa + ',1');
+								// post 1
+							}
+						}
+						location.reload();
+						break;
+				}
+			}
+			function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case 'carchg':
+						if (b_ret != null) {
+							var t_where = '1!=1';
+							curData.isLoad = true;
+							curData.carchgno = new Array();
+							var t_carchgno = '';
+							for (var i = 0; i < b_ret.length; i++) {
+								curData.carchgno.push(b_ret[i].noa);
+								t_where += " or noa='" + b_ret[i].noa + "'";
+								t_carchgno += (t_carchgno.length > 0 ? ',' : '') + b_ret[i].noa;
+							}
+							$('#txtCarchgno').val(t_carchgno);
+							q_gt('carchg', "where=^^" + t_where + "^^", 0, 0, 0, "");
+						}
+						break;
+					case q_name + '_s':
+						q_boxClose2(s2);
+						break;
+				}
+				b_pop = '';
+			}
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'carchg':
+						var as = _q_appendData("carchg", "", true);
+						var t_plusmoney = 0, t_minusmoney = 0;
+						for ( i = 0; i < as.length; i++) {
+							t_plusmoney += parseFloat(as[i].plusmoney);
+							t_minusmoney += parseFloat(as[i].minusmoney);
+						}
+						$('#txtPlusmoney').val(t_plusmoney);
+						$('#txtMinusmoney').val(t_minusmoney);
+						sum();
+						break;
+					case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
+						break;
+				}
+			}
+			function btnOk() {
+				$('#txtDatea').val($.trim($('#txtDatea').val()));
+				if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
+					alert(q_getMsg('lblDatea') + '錯誤。');
+					return;
+				}
+				if (q_cur == 1)
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
+				sum();
+				var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tre') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
+			}
+			function _btnSeek() {
+				if (q_cur > 0 && q_cur < 4)
+					return;
+				q_box('tre_s.aspx', q_name + '_s', "530px", "530px", q_getMsg("popSeek"));
+			}
+			function bbsAssign() {
+				for (var ix = 0; ix < q_bbsCount; ix++) {
+					$('#lblNo_' + ix).text(ix + 1);
+				}
+				_bbsAssign();
+			}
+			function btnIns() {
+				_btnIns();
+				$('#txtNoa').val('AUTO');
+				$('#txtDatea').val(q_date());
+				$('#txtDatea').focus();
+				curData = new tre();
+			}
+			function btnModi() {
+				if (emp($('#txtNoa').val()))
+					return;
+				if (q_chkClose())
+					return;
+				_btnModi();
+				$('#txtDatea').focus();
+				curData = new tre();
+				sum();
+			}
+			function btnPrint() {
+				q_box('z_tre.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+			}
+			function wrServer(key_value) {
+				var i;
+				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+				_btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+			}
+			function bbsSave(as) {
+				if (!as['tranno']) {
+					as[bbsKey[1]] = '';
+					return;
+				}
+				q_nowf();
+				return true;
+			}
+			function sum() {
+				if (!(q_cur == 1 || q_cur == 2))
+					return;
+				var t_money = 0, t_total = 0;
+				for ( i = 0; i < q_bbsCount; i++) {
+					t_money += q_float('txtMoney_' + i);
+				}
+				t_plusmoney = q_float('txtPlusmoney');
+				t_minusmoney = q_float('txtMinusmoney');
+				t_total = t_money + t_plusmoney - t_minusmoney;
+				$('#txtMoney').val(t_money);
+				$('#txtTotal').val(t_total);
+			}
+			function refresh(recno) {
+				_refresh(recno);
+			}
+			function readonly(t_para, empty) {
+				_readonly(t_para, empty);
+				if (q_cur == 1 || q_cur == 2) {
+					$('#btnTrans').hide();
+					$('#btnCarchg').removeAttr('disabled');
+				} else {
+					$('#btnTrans').show();
+					$('#btnCarchg').attr('disabled', 'disabled');
+				}
+			}
+			function btnMinus(id) {
+				_btnMinus(id);
+				sum();
+			}
+			function btnPlus(org_htm, dest_tag, afield) {
+				_btnPlus(org_htm, dest_tag, afield);
+			}
+			function q_appendData(t_Table) {
+				return _q_appendData(t_Table);
+			}
+			function btnSeek() {
+				_btnSeek();
+			}
+			function btnTop() {
+				_btnTop();
+			}
+			function btnPrev() {
+				_btnPrev();
+			}
+			function btnPrevPage() {
+				_btnPrevPage();
+			}
+			function btnNext() {
+				_btnNext();
+			}
+			function btnNextPage() {
+				_btnNextPage();
+			}
+			function btnBott() {
+				_btnBott();
+			}
+			function q_brwAssign(s1) {
+				_q_brwAssign(s1);
+			}
+			function btnDele() {
+				if (q_chkClose())
+					return;
+				_btnDele();
+			}
+			function btnCancel() {
+				_btnCancel();
+			}
+			function checkId(str) {
+				if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+					var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+					var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+					var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+					if ((n % 10) == 0)
+						return 1;
+				} else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+					var key = '12121241';
+					var n = 0;
+					var m = 0;
+					for (var i = 0; i < 8; i++) {
+						n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+						m += Math.floor(n / 10) + n % 10;
+					}
+					if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+						return 2;
+				} else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
+					var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+					if (regex.test(str))
+						return 3;
+				} else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
+					str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
+					var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+					if (regex.test(str))
+						return 4
+				}
+				return 0;
+				//錯誤
+			}
         </script>
         <style type="text/css">
             #dmain {
@@ -431,8 +355,8 @@
             }
             .dview {
                 float: left;
-                width: 950px; 
-                border-width: 0px; 
+                width: 950px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -452,8 +376,8 @@
             .dbbm {
                 float: left;
                 width: 950px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -472,7 +396,7 @@
             .tbbm tr td {
                 width: 10%;
             }
-            .tbbm .tr1{
+            .tbbm .tr1 {
                 background-color: #FFEC8B;
             }
             .tbbm .tr_carchg {
@@ -525,7 +449,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                font-size:medium;
+                font-size: medium;
             }
             .dbbs {
                 width: 2400px;
@@ -533,12 +457,12 @@
             .tbbs a {
                 font-size: medium;
             }
-            
+
             .num {
                 text-align: right;
             }
-            input[type="text"],input[type="button"] {
-                font-size:medium;
+            input[type="text"], input[type="button"] {
+                font-size: medium;
             }
         </style>
     </head>
@@ -562,7 +486,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>兌現日期</a></td>
+                    <td style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;color: blue;"><a>出車登錄日期</a></td>
                     <td colspan="3" style="padding: 2px;text-align: center;border-width: 0px;background-color: pink;">
                     <input type="text" id="textBBdate" style="float:left;width:40%;"/>
                     <span style="float:left;width:5%;">~</span>
@@ -585,27 +509,23 @@
                 <table class="tview" id="tview">
                     <tr>
                         <td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-                        <td align="center" style="width:80px; color:black;"><a id='vewCarteam'> </a></td>
                         <td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
-                        <td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
                         <td align="center" style="width:140px; color:black;"><a id='vewDriver'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewPlusmoney'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewMinusmoney'> </a></td>
                         <td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
-                        <td align="center" style="width:80px; color:black;"><a id='vewUnopay'> </a></td>
                     </tr>
                     <tr>
-                        <td ><input id="chkBrow.*" type="checkbox" /></td>
-                        <td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
+                        <td >
+                        <input id="chkBrow.*" type="checkbox" />
+                        </td>
                         <td id="datea" style="text-align: center;">~datea</td>
-                        <td id="carno" style="text-align: center;">~carno</td>
                         <td id="driver" style="text-align: center;">~driver</td>
                         <td id="money,0,1" style="text-align: right;">~money,0,1</td>
                         <td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
                         <td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
                         <td id="total,0,1" style="text-align: right;">~total,0,1</td>
-                        <td id="unopay,0,1" style="text-align: right;">~unopay,0,1</td>
                     </tr>
                 </table>
             </div>
@@ -625,90 +545,88 @@
                         <td class="tdZ"><span class="schema"> </span></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblDate2" class="lbl"> </a></td>
-                        <td><input id="txtDate2" type="text"  class="txt c1"/></td>
-                        <td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-                        <td><select id="cmbCarteamno" class="txt c1">  </select></td>
-                        <td colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
-                        <td colspan="3">
-                        <input id="txtBdate" type="text" class="txt" style="width:40%;"/>
-                        <span id="sign_2" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-                        <input id="txtEdate" type="text"  class="txt" style="width:40%;"/>
+                        <td>
+                        <input type="button" id="btnTrans" class="txt c1"/>
                         </td>
-                        <td><input type="button" id="btnTrans" class="txt c1"/></td>
                     </tr>
                     <tr class="tr_carchg">
-                        <td><span> </span><a id="lblCarchgno" class="lbl"> </a></td>
-                        <td colspan="7"><input id="txtCarchgno" type="text" class="txt c1"/></td>
-                        <td> </td>
-                        <td><input type="button" id="btnCarchg" class="txt c1"/></td>
-                    </tr>
-                    <tr>
-                        <td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-                        <td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
-                        <td><span> </span><a id="lblDriver" class="lbl"> </a></td>
-                        <td colspan="2">
-                            <input id="txtDriverno" type="text"  class="txt" style="width:50%;"/>
-                            <input id="txtDriver" type="text"  class="txt" style="width:50%;"/>
+                        <td><span> </span><a id="lblCarchgno" class="lbl btn"> </a></td>
+                        <td colspan="7">
+                        <input id="txtCarchgno" type="text" class="txt c1"/>
                         </td>
-                    </tr>   
+                        <td></td>
+                        <td>
+                        <input type="button" id="btnCarchg" class="txt c1"/>
+                        </td>
+                    </tr>
                     <tr>
                         <td><span> </span><a id="lblDatea" class="lbl"> </a></td>
                         <td><input id="txtDatea" type="text"  class="txt c1"/></td>
-                        <td><span> </span><a id="lblMon" class="lbl"> </a></td>
-                        <td><input id="txtMon" type="text"  class="txt c1"/></td>
-                    </tr>       
-                    <tr>
-                        <td><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblNoa" class="lbl"> </a></td>
                         <td colspan="2">
-                        <input id="txtRc2ano" type="text" class="txt c1" />
+                        <input id="txtNoa" type="text" class="txt c1"/>
                         </td>
-                        <td><span> </span><a id="lblPaydate" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblDriver" class="lbl"> </a></td>
+                        <td colspan="2">
+                        <input id="txtDriverno" type="text"  class="txt" style="width:50%;"/>
+                        <input id="txtDriver" type="text"  class="txt" style="width:50%;"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span> </span><a id="lblMoney" class="lbl"> </a></td>
                         <td>
-                        <input id="txtPaydate" type="text" class="txt c1" />
+                        <input id="txtMoney" type="text"  class="txt c1 num"/>
                         </td>
+                        <td><span> </span><a id="lblPlusmoney" class="lbl"> </a></td>
+                        <td>
+                        <input id="txtPlusmoney" type="text" class="txt c1 num" />
+                        </td>
+                        <td><span> </span><a id="lblMinusmoney" class="lbl"> </a></td>
+                        <td>
+                        <input id="txtMinusmoney" type="text" class="txt c1 num" />
+                        </td>
+                        <td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+                        <td><input id="txtTotal" type="text" class="txt c1 num" /></td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a id="lblCheckno" class="lbl"> </a></td>
                         <td colspan="2">
                         <input id="txtCheckno" type="text" class="txt c1" />
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-                        <td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
-                        <td><span> </span><a id="lblPlusmoney" class="lbl"> </a></td>
-                        <td><input id="txtPlusmoney" type="text" class="txt c1 num" /></td>
-                        <td><span> </span><a id="lblMinusmoney" class="lbl"> </a></td>
-                        <td><input id="txtMinusmoney" type="text" class="txt c1 num" /></td>
-                    </tr>
-                    <tr>
-                        <td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-                        <td colspan="3">
-                            <input id="txtTggno" type="text"  class="txt" style="width:40%;"/>
-                            <input id="txtTggcomp" type="text" class="txt" style="width:60%;"/>
-                        </td>
-                        <td><span> </span><a id="lblUnopay" class="lbl"> </a></td>
-                        <td><input id="txtUnopay" type="text" class="txt c1 num" /></td>
-                        <td><span> </span><a id="lblTotal" class="lbl"> </a></td>
-                        <td><input id="txtTotal" type="text" class="txt c1 num" /></td>
-                    </tr>
-                    <tr>
                         <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-                        <td colspan="6"><input id="txtMemo" type="text" class="txt c1" /></td>
-                        <td> </td>
+                        <td colspan="6">
+                        <input id="txtMemo" type="text" class="txt c1" />
+                        </td>
+                        <td></td>
                         <td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-                        <td><input id="txtWorker" type="text" class="txt c1" /></td>
+                        <td>
+                        <input id="txtWorker" type="text" class="txt c1" />
+                        </td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-                        <td><input id="txtAccno" type="text"  class="txt c1"/></td>
-                        <td><input id="txtYear1" type="text"  class="txt c1"/></td>
+                        <td>
+                        <input id="txtAccno" type="text"  class="txt c1"/>
+                        </td>
+                        <td>
+                        <input id="txtYear1" type="text"  class="txt c1"/>
+                        </td>
                         <td><span> </span><a id="lblAccno2" class="lbl btn"> </a></td>
-                        <td><input id="txtAccno2" type="text"  class="txt c1"/> </td>
-                        <td><input id="txtYear2" type="text"  class="txt c1"/> </td>
+                        <td>
+                        <input id="txtAccno2" type="text"  class="txt c1"/>
+                        </td>
+                        <td>
+                        <input id="txtYear2" type="text"  class="txt c1"/>
+                        </td>
                         <td></td>
                         <td></td>
                         <td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-                        <td><input id="txtWorker2" type="text"  class="txt c1"/></td>
+                        <td>
+                        <input id="txtWorker2" type="text"  class="txt c1"/>
+                        </td>
 
                     </tr>
                 </table>
@@ -720,11 +638,11 @@
                     <td  align="center" style="width:30px;">
                     <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
                     </td>
-                    <td align="center" style="width:20px;"> </td>
+                    <td align="center" style="width:20px;"></td>
                     <td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
-                    <td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
-                    <td align="center" style="width:200px;"><a id='lbEndaddr_s'> </a></td>
+                    <td align="center" style="width:200px;"><a id='lblStraddr_tb'> </a></td>
+                    <td align="center" style="width:200px;"><a id='lblEndaddr_tb'> </a></td>
                     <td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
@@ -741,29 +659,63 @@
                 </tr>
                 <tr style='background:#cad3ff;'>
                     <td align="center">
-                        <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-                        <input id="txtNoq.*" type="text" style="display: none;"/>
-                        <input id="txtTranaccy.*" type="text" style="display: none;"/>
-                        <input id="txtTrannoq.*" type="text" style="display: none;"/>
+                    <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+                    <input id="txtNoq.*" type="text" style="display: none;"/>
+                    <input id="txtTranaccy.*" type="text" style="display: none;"/>
+                    <input id="txtTrannoq.*" type="text" style="display: none;"/>
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                    <td><input type="text" id="txtTrandate.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtComp.*" style="width:95%;"/></td >
-                    <td><input type="text" id="txtStraddr.*" style="width:95%;" /></td>
-                    <td><input type="text" id="txtEndaddr.*" style="width:95%;" /></td>
-                    <td><input type="text" id="txtProduct.*" style="width:95%;" /></td>
-                    <td><input type="text" id="txtMount.*" style="width:95%;text-align: right;" /></td>
-                    <td><input type="text" id="txtPrice.*" style="width:95%;text-align: right;" /></td>
-                    <td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;"/></td>
-                    <td><input type="text" id="txtMoney.*" style="width:95%;text-align: right;"/></td>
-                    <td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtTranno.*" style="float:left;width: 95%;"/></td>
-                    <td><input type="text" id="txtRs.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtPaymemo.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtFill.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtCasetype.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtCaseno.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtCaseno2.*" style="width:95%;"/></td>                   
+                    <td>
+                    <input type="text" id="txtTrandate.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtComp.*" style="width:95%;"/>
+                    </td >
+                    <td>
+                    <input type="text" id="txtStraddr.*" style="width:95%;" />
+                    </td>
+                    <td>
+                    <input type="text" id="txtEndaddr.*" style="width:95%;" />
+                    </td>
+                    <td>
+                    <input type="text" id="txtProduct.*" style="width:95%;" />
+                    </td>
+                    <td>
+                    <input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td>
+                    <input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td>
+                    <input type="text" id="txtDiscount.*" style="width:95%;text-align: right;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtMoney.*" style="width:95%;text-align: right;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtMemo.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtTranno.*" style="float:left;width: 95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtRs.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtPaymemo.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtFill.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtCasetype.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtCaseno.*" style="width:95%;"/>
+                    </td>
+                    <td>
+                    <input type="text" id="txtCaseno2.*" style="width:95%;"/>
+                    </td>
                 </tr>
             </table>
         </div>
