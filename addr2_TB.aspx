@@ -71,7 +71,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('addr2_RJ_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('addr2_tb_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -85,7 +85,7 @@
                 $('#txtAddr').focus();
             }
             function btnPrint() {
-                q_box("z_addr2_RJ.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2_RJ', "95%", "95%", q_getMsg('popZ_addr2_RJ'));
+                q_box("z_addr2_tb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2_RJ', "95%", "95%", q_getMsg('popZ_addr2_RJ'));
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))

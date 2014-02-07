@@ -51,7 +51,7 @@
                 
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("datea", t_bdate, t_edate)+ q_sqlPara_or(["accno", "accno2"], t_accno);
                 if (t_driver.length > 0)
-                    t_where += " and charindex('%" + t_driver + "%',driver)>0";     
+                    t_where += " and charindex('" + t_driver + "',driver)>0";     
                 if(t_carno.length>0)
                     t_where += " and exists(select noa from tres"+r_accy+" where tres"+r_accy+".noa=tre"+r_accy+".noa and tres"+r_accy+".memo='"+t_carno+"')";
                 if(t_tranno.length>0)

@@ -49,9 +49,9 @@
                  + q_sqlPara_or(["accno", "accno2"], t_accno);
                 
                 if (t_comp.length > 0)
-                    t_where += " and charindex('%" + t_comp + "%',comp)>0";
+                    t_where += " and charindex('" + t_comp + "',comp)>0";
                 if (t_invono.length > 0)
-                    t_where += " and charindex('%" + t_invono + "%',vccano)>0";
+                    t_where += " and charindex('" + t_invono + "',vccano)>0";
                 if (t_umm == 'Y')
                     t_where += " and unpay=0";
                 if (t_umm == 'N')
