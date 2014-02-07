@@ -209,7 +209,7 @@
 			function _btnSeek() {
 				if (q_cur > 0 && q_cur < 4)
 					return;
-				q_box('tre_s.aspx', q_name + '_s', "530px", "530px", q_getMsg("popSeek"));
+				q_box('tre_tb_s.aspx', q_name + '_s', "530px", "530px", q_getMsg("popSeek"));
 			}
 			function bbsAssign() {
 				for (var j = 0; j < q_bbsCount; j++) {
@@ -245,7 +245,7 @@
 				sum();
 			}
 			function btnPrint() {
-				q_box('z_tre.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+				q_box('z_tre_tb.aspx' + "?;;;;" + r_accy + ";datea=" + abbm[q_recno].datea, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 			function wrServer(key_value) {
 				var i;
