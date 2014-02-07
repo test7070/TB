@@ -19,44 +19,66 @@
                 location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
             }
             $(document).ready(function() {
-                _q_boxClose();
+                q_gf('', 'z_trd_tb');
                 q_getId();
-                q_gf('', 'z_tre_tb');
             });
             function q_gfPost() {
-                loadFinish();
-            }
-            function q_gtPost(t_name) {
-            }
-            function q_boxClose(t_name) {
-            }
-            function loadFinish() {
                 $('#q_report').q_report({
-                    fileName : 'z_tre_tb', options : [{//[1][2]
-                        type : '1', name : 'date'
-                    }, {//[3][4]
-                        type : '2', name : 'driver', dbf : 'driver', index : 'noa,namea', src : 'driver_b.aspx'
+                    fileName : 'z_trd_tb',
+                    options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    }, {/*1*/
+                        type : '2',
+                        name : 'cust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                    }, {/*2*/
+                        type : '1',
+                        name : 'date'
+                    }, {/*3*/
+                        type : '6',
+                        name : 'xvccano'
+                    }, {/*4*/
+                        type : '5', //select
+                        name : 'xsort1',
+                        value : q_getPara('z_trd.sort1').split(',')
+                    }, {/*5*/
+                        type : '6', 
+                        name : 'xnoa'
+                    }, {/*6*/
+                        type : '1',
+                        name : 'mon'
+                    }, {/*7*/
+                        type : '8',
+                        name : 'xoption05',
+                        value : q_getMsg('toption05').split('&')
                     }]
                 });
-                q_popAssign();
+                q_getFormat();
                 q_langShow();
+                q_popAssign();
+
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
                 
-                var t_datea=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
-                t_datea  =  t_datea.replace('datea=','');
-                $('#txtDate1').val(t_datea);
-                $('#txtDate2').val(t_datea);
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');
+                
+                var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtXnoa').val(t_noa);
             }
         </script>
     </head>
     <body ondragstart="return false" draggable="false"
     ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
     ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-    ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-    >
+    ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
         <div id="q_menu"></div>
         <div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
             <div id="container">
