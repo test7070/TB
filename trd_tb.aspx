@@ -232,7 +232,7 @@
 						break;
 					case 'trd_tran_tb':
 						var as = _q_appendData("view_trans", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranaccy,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtEndaddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct', as.length, as, 'trandate,accy,noa,noq,carno,straddr,endaddr,custmoney,caseno,mount,price,total,custorde,product', '', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranaccy,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtEndaddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct', as.length, as, 'trandate,accy,noa,noq,carno,straddr,endaddr,total,caseno,mount,price,total,custorde,product', '', '');
 						for ( i = 0; i < q_bbsCount; i++) {
 							if (i < as.length) {
 							} else {
@@ -581,7 +581,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 1500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -616,9 +616,7 @@
                         <td align="center" style="width:70px; color:black;"><a id="vewMinusmoney"> </a></td>
                         <td align="center" style="width:70px; color:black;"><a id="vewTax"> </a></td>
                         <td align="center" style="width:70px; color:black;"><a id="vewTotal"> </a></td>
-                        <td align="center" style="width:70px; color:black;"><a id="vewMount"> </a></td>
                         <td align="center" style="width:100px; color:black;"><a id="vewVccano"> </a></td>
-                        <td align="center" style="width:70px; color:black;"><a id="vewUnpay"> </a></td>
                     </tr>
                     <tr>
                         <td >
@@ -631,9 +629,7 @@
                         <td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
                         <td id="tax,0,1" style="text-align: right;">~tax,0,1</td>
                         <td id="total,0,1" style="text-align: right;">~total,0,1</td>
-                        <td id="mount" style="text-align: right;">~mount</td>
                         <td id="vccano,10" style="text-align: left;" >~vccano,10</td>
-                        <td id="unpay,0,1" style="text-align: right;">~unpay,0,1</td>
                     </tr>
                 </table>
             </div>

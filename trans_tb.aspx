@@ -61,7 +61,7 @@
                 data : [],
                 /*新增時複製的欄位*/
                 include : ['txtDatea', 'txtTrandate','txtCarno','txtDriverno','txtDriver'
-                    ,'txtCustno','txtComp','txtNick','cmbCalctype','txtStraddrno','txtStraddr'
+                    ,'txtCustno','txtComp','txtNick','cmbCalctype','txtStraddrno','txtStraddr','txtEndaddr'
                     ,'txtUccno','txtProduct','txtInmount'
                     ,'txtOutmount','txtPo','txtCustorde','txtUnit','txtUnit2'],
                 /*記錄當前的資料*/
@@ -327,17 +327,19 @@
                     case 'transInit1':
                         var as = _q_appendData("calctypes", "", true);
                         var t_item = "";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
-                            trans.calctype.push({
-                                noa : as[i].noa + as[i].noq,
-                                typea : as[i].typea,
-                                discount : as[i].discount,
-                                discount2 : as[i].discount2,
-                                isoutside : as[i].isoutside.length == 0 ? false : (as[i].isoutside == "false" || as[i].isoutside == "0" || as[i].isoutside == "undefined" ? false : true)
-                            });
+                        if(as[0]!=undefined){
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
+                                trans.calctype.push({
+                                    noa : as[i].noa + as[i].noq,
+                                    typea : as[i].typea,
+                                    discount : as[i].discount,
+                                    discount2 : as[i].discount2,
+                                    isoutside : as[i].isoutside.length == 0 ? false : (as[i].isoutside == "false" || as[i].isoutside == "0" || as[i].isoutside == "undefined" ? false : true)
+                                });
+                            }
+                            q_cmbParse("cmbCalctype", t_item);
                         }
-                        q_cmbParse("cmbCalctype", t_item);
                         if(abbm[q_recno]!=undefined)
                             $("#cmbCalctype").val(abbm[q_recno].calctype);  
                         q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
@@ -658,7 +660,11 @@
                         <td align="center" style="width:120px; color:black;"><a id="vewEndaddr_tb"> </a></td>
                         <td align="center" style="width:60px; color:black;"><a id="vewFill"> </a></td>
                         <td align="center" style="width:60px; color:black;"><a id="vewMount"> </a></td>
+                        <td align="center" style="width:60px; color:black;"><a id="vewPrice"> </a></td>
                         <td align="center" style="width:60px; color:black;"><a id="vewMount2"> </a></td>
+                        <td align="center" style="width:60px; color:black;"><a id="vewPrice2"> </a></td>
+                        <td align="center" style="width:60px; color:black;"><a id="vewPrice3"> </a></td>
+                        <td align="center" style="width:60px; color:black;"><a id="vewDiscount"> </a></td>
                         <td align="center" style="width:120px; color:black;"><a id="vewBoat"> </a></td>
                         <td align="center" style="width:120px; color:black;"><a id="vewShip"> </a></td>
                         <td align="center" style="width:120px; color:black;"><a id="vewPo"> </a></td>
@@ -677,7 +683,11 @@
                         <td id="endaddr" style="text-align: center;">~endaddr</td>
                         <td id="fill" style="text-align: center;">~fill</td>
                         <td id="mount" style="text-align: right;">~mount</td>
+                        <td id="price" style="text-align: right;">~price</td>
                         <td id="mount2" style="text-align: right;">~mount2</td>
+                        <td id="price2" style="text-align: right;">~price2</td>
+                        <td id="price3" style="text-align: right;">~price3</td>
+                        <td id="discount" style="text-align: right;">~discount</td>
                         <td id="boatname" style="text-align: left;">~boatname</td>
                         <td id="ship" style="text-align: left;">~ship</td>
                         <td id="po" style="text-align: left;">~po</td>
