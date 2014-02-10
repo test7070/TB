@@ -21,7 +21,7 @@
 			q_tables = 's';
 			var q_name = "trd";
 			var q_readonly = ['txtTax', 'txtNoa', 'txtMoney', 'txtTotal', 'txtWorker2', 'txtWorker', 'txtStraddr', 'txtEndaddr', 'txtVccano', 'txtCustchgno', 'txtAccno', 'txtAccno2', 'txtYear2', 'txtYear1','txtPlusmoney','txtMinusmoney'];
-			var q_readonlys = ['txtTranno', 'txtTrannoq', 'txtTrandate', 'txtStraddr', 'txtEndaddr', 'txtProduct', 'txtCarno', 'txtCustorde', 'txtCaseno', 'txtMount', 'txtTotal', 'txtTranmoney','txtTranaccy'];
+			var q_readonlys = ['txtTranno', 'txtTrannoq', 'txtTrandate', 'txtStraddr', 'txtEndaddr', 'txtProduct', 'txtCarno', 'txtCustorde', 'txtCaseno', 'txtMount','txtPrice', 'txtTotal', 'txtTranmoney','txtTranaccy'];
 			var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
 			var bbsNum = [['txtTranmoney', 10, 0, 1], ['txtOverweightcost', 10, 0, 1], ['txtOthercost', 10, 0, 1], ['txtMount', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1]];
 			var bbmMask = [];
@@ -96,11 +96,6 @@
 						Unlock(1);
 						return false;
 					}
-					/*if ($('#txtDatea').val().substring(0, 3) != r_accy) {
-						alert('年度異常錯誤，請切換到【' + $('#txtDatea').val().substring(0, 3) + '】年度再作業。');
-						Unlock(1);
-						return;
-					}*/
 					var t_noa = $.trim($('#txtNoa').val());
 					var t_custno = $.trim($('#txtCustno').val());
 					var t_bdate = $.trim($('#txtBdate').val());
@@ -237,7 +232,7 @@
 						break;
 					case 'trd_tran_tb':
 						var as = _q_appendData("view_trans", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranaccy,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtEndaddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct', as.length, as, 'trandate,accy,noa,noq,carno,straddr,endaddr,custmoney,caseno,mount,custprice,custmoney,custorde,product', '', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranaccy,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtEndaddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct', as.length, as, 'trandate,accy,noa,noq,carno,straddr,endaddr,custmoney,caseno,mount,price,total,custorde,product', '', '');
 						for ( i = 0; i < q_bbsCount; i++) {
 							if (i < as.length) {
 							} else {
@@ -414,9 +409,10 @@
                     return;
                 var t_money = 0, t_moneys = 0, t_total = 0;
                 for ( i = 0; i < q_bbsCount; i++) {
-                    t_money = round(q_mul(q_float('txtMount_'+i),q_float('txtPrice_'+i)),0);
-                    $('#txtTotal_'+i).val(t_money);
-                    $('#txtTranmoney_'+i).val(t_money);
+                   // t_money = round(q_mul(q_float('txtMount_'+i),q_float('txtPrice_'+i)),0);
+                    //$('#txtTotal_'+i).val(t_money);
+                    //$('#txtTranmoney_'+i).val(t_money);
+                    t_money = q_float('txtTotal_'+i);
                     t_moneys += t_money;
                 }
                 t_plusmoney = q_float('txtPlusmoney');

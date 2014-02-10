@@ -20,8 +20,8 @@
             }
 
             var q_name = "trans";
-            var q_readonly = ['txtNoa','txtOrdeno','txtWorker','txtWorker2'];
-            var bbmNum = [];
+            var q_readonly = ['txtNoa','txtOrdeno','txtWorker','txtWorker2','txtTotal','txtTotal2'];
+            var bbmNum = [['txtInmount',10,3,1],['txtPton',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1],['txtOutmount',10,3,1],['txtPton2',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtDiscount',10,3,1],['txtTotal2',10,0,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -42,8 +42,17 @@
             function sum() {
                 if(q_cur!=1 && q_cur!=2)
                     return;
-                $('#txtMount').val(q_add(q_float('txtInmount'),q_float('txtPton')));
-                $('#txtMount2').val(q_add(q_float('txtOutmount'),q_float('txtPton2')));
+                var t_price = q_float('txtPrice');
+                var t_price2 = q_float('txtPrice2');
+                var t_price3 = q_float('txtPrice3');
+                var t_mount = q_add(q_float('txtInmount'),q_float('txtPton'));
+                var t_mount2 = q_add(q_float('txtOutmount'),q_float('txtPton2'));
+                var t_total = round(q_mul(t_price,t_mount),0);
+                var t_total2 = round(q_mul(q_mul(q_add(t_price2,t_price3),t_mount2),q_float('txtDiscount')),0);
+                $('#txtMount').val(q_trv(t_mount));
+                $('#txtMount2').val(q_trv(t_mount2));
+                $('#txtTotal').val(q_trv(t_total));
+                $('#txtTotal2').val(q_trv(t_total2));
             }
             
             function currentData() {
@@ -54,7 +63,7 @@
                 include : ['txtDatea', 'txtTrandate','txtCarno','txtDriverno','txtDriver'
                     ,'txtCustno','txtComp','txtNick','cmbCalctype','txtStraddrno','txtStraddr'
                     ,'txtUccno','txtProduct','txtInmount'
-                    ,'txtOutmount','txtPo','txtCustorde','txtSalesno','txtSales'],
+                    ,'txtOutmount','txtPo','txtCustorde','txtUnit','txtUnit2'],
                 /*記錄當前的資料*/
                 copy : function() {
                     this.data = new Array();
@@ -82,7 +91,98 @@
                 }
             };
             var curData = new currentData();
-         
+            
+            function transData() {
+            }
+            transData.prototype = {
+                calctype : new Array(), 
+                isTrd : null,
+                isTre : null,
+                isoutside : null,            
+                refresh : function(){
+                    $('#lblPrice2').hide();
+                    $('#txtPrice2').hide();
+                    $('#lblPrice3').hide();
+                    $('#txtPrice3').hide();
+                    for(var i in this.calctype){
+                        if(this.calctype[i].noa == $('#cmbCalctype').val()){
+                            if(this.calctype[i].isoutside){
+                                $('#lblPrice3').show();
+                                $('#txtPrice3').show();
+                            }else{
+                                $('#lblPrice2').show();
+                                $('#txtPrice2').show();
+                            }
+                        }
+                    }
+                    
+                },
+                calctypeChange : function(){
+                    for(var i in this.calctype){
+                        if(this.calctype[i].noa == $('#cmbCalctype').val()){
+                            $('#txtDiscount').val(q_trv(this.calctype[i].discount));     
+                            this.isoutside = this.calctype[i].isoutside;                            
+                        }
+                    }
+                    this.priceChange();
+                },
+                priceChange : function(){
+                    var t_straddrno = $.trim($('#txtStraddrno').val());
+                    var t_endaddrno = $.trim($('#txtEndaddrno').val());
+                    var t_productno = $.trim($('#txtUccno').val());
+                    var t_date = $.trim($('#txtTrandate').val());
+                    var t_unit = $.trim($('#txtUnit').val());
+                    
+                    t_where = "b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.custunit='"+t_unit+"'";
+                    q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_cust');
+                },
+                checkData : function(){
+                    this.isTrd = false;
+                    this.isTre = false;
+                    this.isoutside = false;
+                    for(var i in this.calctype){
+                        if(this.calctype[i].noa == $('#cmbCalctype').val()){
+                            this.isoutside = this.calctype[i].isoutside;
+                        }
+                    }
+                    $('#txtDatea').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtTrandate').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    
+                    $('#txtCustno').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtComp').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtStraddrno').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtStraddr').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtInmount').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtPton').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtPrice').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    
+                    $('#txtCarno').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtDriverno').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtDriver').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtOutmount').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtPton2').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtPrice2').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtPrice3').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtDiscount').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#txtTolls').attr('readonly','readonly').css('color','green').css('background','rgb(237,237,237)');
+                    $('#cmbCalctype').attr('disabled','disabled');
+                    $('#cmbCarteamno').attr('disabled','disabled');
+                    if($('#txtOrdeno').val().length>0){
+                        //轉來的一律不可改日期
+                    }else{
+                        var t_tranno = $.trim($('#txtNoa').val());
+                        var t_trannoq = $.trim($('#txtNoq').val());
+                        var t_datea = $.trim($('#txtDatea').val());
+                        if(q_cur==2 && (t_tranno.length==0 || t_trannoq.length==0 || t_datea.length==0)){
+                            alert('資料異常。 code:1');
+                        }else{
+                            //檢查是否已立帳
+                            q_gt('view_trds', "where=^^ tranno='"+t_tranno+"' and trannoq='"+t_trannoq+"' ^^", 0, 0, 0, 'checkTrd_'+t_tranno+'_'+t_trannoq+'_'+t_datea,r_accy);
+                        }
+                    }
+                }
+           };
+            trans = new transData();
                 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -104,12 +204,40 @@
                 
                 bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd]];
                 q_mask(bbmMask);
+                $("#cmbCalctype").focus(function() {
+                    var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
+                    $("#cmbCalctype").attr('size', len + "");
+                    $(this).data('curValue',$(this).val());
+                }).blur(function() {
+                    $("#cmbCalctype").attr('size', '1');
+                }).change(function(e){
+                    trans.refresh();
+                    trans.calctypeChange();
+                }).click(function(e){
+                    if($(this).data('curValue')!=$(this).val()){
+                        trans.refresh();
+                        trans.calctypeChange();
+                    }
+                    $(this).data('curValue',$(this).val());
+                });
                 //櫃號異常就變色
                 $('#txtCaseno').change(function(e){
                     $(this).css('color',$.trim($(this).val()).length==0||checkCaseno($.trim($(this).val()))?'black':'darkred');
                 });
                 $('#txtCaseno2').change(function(e){
                     $(this).css('color',$.trim($(this).val()).length==0||checkCaseno($.trim($(this).val()))?'black':'darkred');
+                });
+                $('#txtPrice').change(function(){
+                    sum();
+                });
+                $('#txtPrice2').change(function(){
+                    sum();
+                });
+                $('#txtPrice3').change(function(){
+                    sum();
+                });
+                $('#txtDiscount').change(function(){
+                    sum();
                 });
                 $('#txtInmount').change(function(){
                     sum();
@@ -129,6 +257,16 @@
                 $('#txtEmiles').change(function(){
                     sum();
                 });
+                $('#txtUnit').change(function(e){
+                    trans.priceChange();
+                });
+                $('#txtUnit2').change(function(e){
+                    trans.priceChange();
+                });
+                $('#txtTrandate').change(function(e){
+                    trans.priceChange();
+                });
+           
                 q_xchgForm();
             }
 
@@ -142,12 +280,62 @@
             }
 
             function q_gtPost(t_name) {
-                switch (t_name) {    
+                switch (t_name) { 
+                    case 'getPrice_driver':
+                        var t_price = 0;
+                        var as = _q_appendData("addrs", "", true);
+                        if(as[0]!=undefined){
+                            t_price = as[0].driverprice;
+                        }
+                        $('#txtPrice2').val(t_price);
+                        $('#txtPrice3').val(0);
+                        
+                        sum();
+                        break; 
+                    case 'getPrice_driver2':
+                        var t_price = 0;
+                        var as = _q_appendData("addrs", "", true);
+                        if(as[0]!=undefined){
+                            t_price = as[0].driverprice2;
+                        }
+                        $('#txtPrice2').val(0);
+                        $('#txtPrice3').val(t_price);
+                        
+                        sum();
+                        break;    
+                    case 'getPrice_cust':
+                        var t_price = 0;
+                        var as = _q_appendData("addrs", "", true);
+                        if(as[0]!=undefined){
+                            t_price = as[0].custprice;
+                        }
+                        $('#txtPrice').val(t_price);
+                        
+                        var t_straddrno = $.trim($('#txtStraddrno').val());
+                        var t_endaddrno = $.trim($('#txtEndaddrno').val());
+                        var t_productno = $.trim($('#txtUccno').val());
+                        var t_date = $.trim($('#txtTrandate').val());
+                        var t_unit = $.trim($('#txtUnit2').val());
+                        if(trans.isoutside){
+                            t_where = "b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.driverunit2='"+t_unit+"'";
+                            q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_driver2');
+                        }else{
+                            t_where = "b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.driverunit='"+t_unit+"'";
+                            q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_driver');
+                        }
+                        break;
                     case 'transInit1':
                         var as = _q_appendData("calctypes", "", true);
                         var t_item = "";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
+                            trans.calctype.push({
+                                noa : as[i].noa + as[i].noq,
+                                typea : as[i].typea,
+                                discount : as[i].discount,
+                                discount2 : as[i].discount2,
+                                isoutside : as[i].isoutside.length == 0 ? false : (as[i].isoutside == "false" || as[i].isoutside == "0" || as[i].isoutside == "undefined" ? false : true)
+                            });
                         }
                         q_cmbParse("cmbCalctype", t_item);
                         if(abbm[q_recno]!=undefined)
@@ -165,6 +353,15 @@
             }
             function q_popPost(id) {
                 switch(id) {
+                    case 'txtStraddrno':
+                        trans.priceChange();
+                        break;
+                    case 'txtEndaddrno':
+                        trans.priceChange();
+                        break;
+                    case 'txtUccno':
+                        trans.priceChange();
+                        break;
                     default:
                         break;
                 }
@@ -182,12 +379,18 @@
                 curData.paste();
                 $('#txtNoa').val('AUTO');
                 $('#txtNoq').val('001');
+                if($('#cmbCalctype').val().length==0){
+                    $('#cmbCalctype').val(trans.calctype[0].noa);
+                }
+                trans.calctypeChange();
+                trans.refresh();
                 $('#txtDatea').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                sum();
             }
             function btnPrint() {
                 q_box('z_trans_tb.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -250,6 +453,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                trans.refresh();
                 $('#txtCaseno').css('color',$.trim($('#txtCaseno').val()).length==0||checkCaseno($.trim($('#txtCaseno').val()))?'black':'darkred');
                 $('#txtCaseno2').css('color',$.trim($('#txtCaseno2').val()).length==0||checkCaseno($.trim($('#txtCaseno2').val()))?'black':'darkred');
             }
@@ -553,14 +757,16 @@
                         <td><input id="txtUnit"  type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblPton" class="lbl"> </a></td>
                         <td><input id="txtPton"  type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblPrice" class="lbl"> </a></td>
+                        <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
                         <td> </td>
                         <td> </td>
                         <td> </td>
                         <td> </td>
-                        <td><span> </span><a id="lblPrice" class="lbl"> </a></td>
-                        <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
+                        <td> </td>
+                        <td> </td>
                         <td><span> </span><a id="lblTotal" class="lbl"> </a></td>
                         <td>
                             <input id="txtTotal"  type="text" class="txt c1 num"/>
@@ -576,12 +782,6 @@
                         <td><input id="txtUnit2"  type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblPton2" class="lbl"> </a></td>
                         <td><input id="txtPton2"  type="text" class="txt c1 num"/></td>
-                    </tr>
-                    <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
                         <td><span> </span>
                             <a id="lblPrice2" class="lbl"> </a>
                             <a id="lblPrice3" class="lbl"> </a>
@@ -590,6 +790,12 @@
                             <input id="txtPrice2"  type="text" class="txt c1 num"/>
                             <input id="txtPrice3"  type="text" class="txt c1 num"/>
                         </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
                         <td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
                         <td><input id="txtDiscount"  type="text" class="txt c1 num"/></td>
                         <td><span> </span><a id="lblTotal2" class="lbl"> </a></td>

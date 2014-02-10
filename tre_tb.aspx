@@ -21,7 +21,7 @@
 			q_tables = 's';
 			var q_name = "tre";
 			var q_readonly = ['txtAccno', 'txtNoa', 'txtMoney', 'txtTotal', 'txtCarchgno', 'txtWorker2', 'txtWorker', 'txtRc2ano', 'txtPaydate', 'txtPlusmoney', 'txtMinusmoney', 'txtAccno', 'txtAccno2', 'txtYear2', 'txtYear1'];
-			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq', 'txtTranaccy','txtMount','txtMoney'];
+			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq', 'txtTranaccy','txtMount','txtPrice','txtDiscount','txtMoney'];
 			var bbmNum = [['txtMoney', 10, 0], ['txtTotal', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
 			var bbsNum = [['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtDiscount', 10, 3], ['txtMoney', 10, 0]];
 			var bbmMask = [];
@@ -258,8 +258,9 @@
 					return;
 				var t_money = 0, t_moneys = 0, t_total = 0;
 				for ( i = 0; i < q_bbsCount; i++) {
-				    t_money = round(q_mul(q_float('txtMount_'+i),q_float('txtPrice_'+i)),0);
-				    $('#txtMoney_'+i).val(t_money);
+				    //t_money = round(q_mul(q_mul(q_float('txtMount_'+i),q_float('txtPrice_'+i)),q_fload('txtDiscount')),0);
+				    //$('#txtMoney_'+i).val(t_money);
+					t_money = q_float('txtMoney_'+i);
 					t_moneys += t_money;
 				}
 				t_plusmoney = q_float('txtPlusmoney');
@@ -622,6 +623,7 @@
                     <td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+                    <td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
                     <td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
                     <td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
@@ -660,6 +662,9 @@
                     </td>
                     <td>
                     <input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
+                    </td>
+                    <td>
+                    <input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" />
                     </td>
                     <td>
                     <input type="text" id="txtMoney.*" style="width:95%;text-align: right;"/>
