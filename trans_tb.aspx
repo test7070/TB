@@ -143,7 +143,7 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {    
-                    case 'transInit':
+                    case 'transInit1':
                         var as = _q_appendData("calctypes", "", true);
                         var t_item = "";
                         for ( i = 0; i < as.length; i++) {
@@ -151,18 +151,7 @@
                         }
                         q_cmbParse("cmbCalctype", t_item);
                         if(abbm[q_recno]!=undefined)
-                            $("#cmbCalctype").val(abbm[q_recno].calctype);                 
-                        q_gt('cartram', '', 0, 0, 0, 'transInit2');
-                        break;
-                    case 'transInit2':
-                        var as = _q_appendData("cartram","",true);
-                        var t_item = "";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
-                        }
-                        q_cmbParse("cmbCarteamno", t_item);
-                        if(abbm[q_recno]!=undefined)
-                            $("#cmbCalctype").val(abbm[q_recno].calctype);
+                            $("#cmbCalctype").val(abbm[q_recno].calctype);  
                         q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
                         break;
                     case q_name:
@@ -566,6 +555,18 @@
                         <td><input id="txtPton"  type="text" class="txt c1 num"/></td>
                     </tr>
                     <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td><span> </span><a id="lblPrice" class="lbl"> </a></td>
+                        <td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+                        <td>
+                            <input id="txtTotal"  type="text" class="txt c1 num"/>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><span> </span><a id="lblOutmount" class="lbl"> </a></td>
                         <td>
                             <input id="txtOutmount"  type="text" class="txt c1 num"/>
@@ -575,6 +576,26 @@
                         <td><input id="txtUnit2"  type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblPton2" class="lbl"> </a></td>
                         <td><input id="txtPton2"  type="text" class="txt c1 num"/></td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td><span> </span>
+                            <a id="lblPrice2" class="lbl"> </a>
+                            <a id="lblPrice3" class="lbl"> </a>
+                        </td>
+                        <td>
+                            <input id="txtPrice2"  type="text" class="txt c1 num"/>
+                            <input id="txtPrice3"  type="text" class="txt c1 num"/>
+                        </td>
+                        <td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+                        <td><input id="txtDiscount"  type="text" class="txt c1 num"/></td>
+                        <td><span> </span><a id="lblTotal2" class="lbl"> </a></td>
+                        <td>
+                            <input id="txtTotal2"  type="text" class="txt c1 num"/>
+                        </td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblCaseno" class="lbl"> </a></td>
