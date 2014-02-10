@@ -42,8 +42,17 @@
             function sum() {
                 if(q_cur!=1 && q_cur!=2)
                     return;
-                $('#txtMount').val(q_add(q_float('txtInmount'),q_float('txtPton')));
-                $('#txtMount2').val(q_add(q_float('txtOutmount'),q_float('txtPton2')));
+                var t_price = q_float('txtPrice');
+                var t_price2 = q_float('txtPrice2');
+                var t_price3 = q_float('txtPrice3');
+                var t_mount = q_add(q_float('txtInmount'),q_float('txtPton'));
+                var t_mount2 = q_add(q_float('txtOutmount'),q_float('txtPton2'));
+                var t_total = round(q_mul(t_price,t_mount),0);
+                var t_total2 = round(q_mul(q_mul(q_add(t_price2,t_price3),t_mount2),q_float('txtDiscount')),0);
+                $('#txtMount').val(q_trv(t_mount));
+                $('#txtMount2').val(q_trv(t_mount2));
+                $('#txtTotal').val(q_trv(t_total));
+                $('#txtTotal2').val(q_trv(t_total2));
             }
             
             function currentData() {
@@ -337,7 +346,7 @@
                     case 'txtEndaddrno':
                         trans.priceChange();
                         break;
-                    case 'txtProductno':
+                    case 'txtUccno':
                         trans.priceChange();
                         break;
                     default:
@@ -368,6 +377,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                sum();
             }
             function btnPrint() {
                 q_box('z_trans_tb.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
