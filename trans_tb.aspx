@@ -227,6 +227,18 @@
                 $('#txtCaseno2').change(function(e){
                     $(this).css('color',$.trim($(this).val()).length==0||checkCaseno($.trim($(this).val()))?'black':'darkred');
                 });
+                $('#txtPrice').change(function(){
+                    sum();
+                });
+                $('#txtPrice2').change(function(){
+                    sum();
+                });
+                $('#txtPrice3').change(function(){
+                    sum();
+                });
+                $('#txtDiscount').change(function(){
+                    sum();
+                });
                 $('#txtInmount').change(function(){
                     sum();
                 });
@@ -254,6 +266,7 @@
                 $('#txtTrandate').change(function(e){
                     trans.priceChange();
                 });
+           
                 q_xchgForm();
             }
 
