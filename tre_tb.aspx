@@ -522,9 +522,16 @@
                         <td class="tdZ"><span class="schema"> </span></td>
                     </tr>
                     <tr>
-                        <td>
-                        <input type="button" id="btnTrans" class="txt c1"/>
-                        </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td><input type="button" id="btnTrans" class="txt c1"/></td>
                     </tr>
                     <tr class="tr_carchg">
                         <td><span> </span><a id="lblCarchgno" class="lbl btn"> </a></td>
