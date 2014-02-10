@@ -96,11 +96,6 @@
 						Unlock(1);
 						return false;
 					}
-					/*if ($('#txtDatea').val().substring(0, 3) != r_accy) {
-						alert('年度異常錯誤，請切換到【' + $('#txtDatea').val().substring(0, 3) + '】年度再作業。');
-						Unlock(1);
-						return;
-					}*/
 					var t_noa = $.trim($('#txtNoa').val());
 					var t_custno = $.trim($('#txtCustno').val());
 					var t_bdate = $.trim($('#txtBdate').val());
@@ -237,7 +232,7 @@
 						break;
 					case 'trd_tran_tb':
 						var as = _q_appendData("view_trans", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranaccy,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtEndaddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct', as.length, as, 'trandate,accy,noa,noq,carno,straddr,endaddr,custmoney,caseno,mount,custprice,custmoney,custorde,product', '', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranaccy,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtEndaddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct', as.length, as, 'trandate,accy,noa,noq,carno,straddr,endaddr,custmoney,caseno,mount,price,total,custorde,product', '', '');
 						for ( i = 0; i < q_bbsCount; i++) {
 							if (i < as.length) {
 							} else {
