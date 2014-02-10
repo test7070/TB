@@ -74,16 +74,6 @@
 				$('#txtMinusmoney').change(function(e) {
 					sum();
 				});
-				/*$('#btnTrans').click(function(e) {
-				 if(q_cur != 1 && q_cur != 2){
-				 if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
-				 alert(q_getMsg('lblDate2')+'年度異常!');
-				 return;
-				 }
-				 Lock(1,{opacity:0});
-				 q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
-				 }
-				 });*/
 				$('#lblCarchgno').click(function(e) {
 					var t_where = "1!=1";
 					var t_carchgno = $('#txtCarchgno').val().split(',');
