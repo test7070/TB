@@ -61,7 +61,7 @@
                 data : [],
                 /*新增時複製的欄位*/
                 include : ['txtDatea', 'txtTrandate','txtCarno','txtDriverno','txtDriver'
-                    ,'txtCustno','txtComp','txtNick','cmbCalctype','txtStraddrno','txtStraddr','txtEndaddr'
+                    ,'txtCustno','txtComp','txtNick','cmbCalctype','txtStraddrno','txtStraddr','txtEndaddrno','txtEndaddr'
                     ,'txtUccno','txtProduct','txtInmount'
                     ,'txtOutmount','txtPo','txtCustorde','txtUnit','txtUnit2'],
                 /*記錄當前的資料*/
