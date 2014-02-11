@@ -61,7 +61,7 @@
                 data : [],
                 /*新增時複製的欄位*/
                 include : ['txtDatea', 'txtTrandate','txtCarno','txtDriverno','txtDriver'
-                    ,'txtCustno','txtComp','txtNick','cmbCalctype','txtStraddrno','txtStraddr','txtEndaddrno','txtEndaddr'
+                    ,'txtCustno','txtComp','txtNick','cmbCalctype','cmbCarteamno','txtStraddrno','txtStraddr','txtEndaddrno','txtEndaddr'
                     ,'txtUccno','txtProduct','txtInmount'
                     ,'txtOutmount','txtPo','txtCustorde','txtUnit','txtUnit2'],
                 /*記錄當前的資料*/
@@ -342,6 +342,21 @@
                         }
                         if(abbm[q_recno]!=undefined)
                             $("#cmbCalctype").val(abbm[q_recno].calctype);  
+                       
+                        q_gt('carteam', '', 0, 0, 0, 'transInit2');
+                        break;
+                    case 'transInit2':
+                        var as = _q_appendData("carteam", "", true);
+                        var t_item = "";
+                        if(as[0]!=undefined){
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                            }
+                            q_cmbParse("cmbCarteamno", t_item);
+                        }
+                        if(abbm[q_recno]!=undefined)
+                            $("#cmbCarteamno").val(abbm[q_recno].carteamno);  
+                            
                         q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
                         break;
                     case q_name:
@@ -717,6 +732,8 @@
                         <td><input id="txtTrandate"  type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblCalctype" class="lbl"> </a></td>
                         <td><select id="cmbCalctype" class="txt c1"> </select></td>
+                        <td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
+                        <td><select id="cmbCarteamno" class="txt c1"> </select></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblCarno" class="lbl"> </a></td>
