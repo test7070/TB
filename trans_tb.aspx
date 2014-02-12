@@ -266,7 +266,12 @@
                 $('#txtTrandate').change(function(e){
                     trans.priceChange();
                 });
-           
+                $('#txtFill').change(function(e){
+                    $(this).val($(this).val().toUpperCase()); 
+                });
+                $('#txtIo').change(function(e){
+                    $(this).val($(this).val().toUpperCase()); 
+                });
                 q_xchgForm();
             }
 
@@ -773,6 +778,8 @@
                         </td>
                         <td><span> </span><a id="lblFill" class="lbl"> </a></td>
                         <td><input id="txtFill"  type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblIo" class="lbl"> </a></td>
+                        <td><input id="txtIo"  type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblInmount" class="lbl"> </a></td>
