@@ -492,10 +492,10 @@
 						<td style="width:110px;"><a id='lblBoatname_s'> </a></td>
 						<td style="width:80px;"><a id='lblShip_s'> </a></td>
 						<td style="width:80px;"><a id='lblSpec_s'> </a></td>
-						<td style="width:130px;"><a id='lblStraddrno_s'> </a></td>
 						<td style="width:100px;"><a id='lblCaseno_s'> </a></td>
-						<td style="width:130px;"><a id='lblEndaddrno_s'> </a></td>
 						<td style="width:100px;"><a id='lblCaseno2_s'> </a></td>
+						<td style="width:130px;"><a id='lblStraddrno_s'> </a></td>
+						<td style="width:130px;"><a id='lblEndaddrno_s'> </a></td>
 						<td style="width:60px;"><a id='lblMount_s'> </a></td>
 						<td style="width:60px;"><a id='lblPrice_s'> </a></td>
 						<td style="width:80px;"><a id='lblTotal_s'> </a></td>
@@ -509,18 +509,18 @@
 						<td><input type="text" id="txtBoatname.*" class="txt c1"/></td>
 						<td><input type="text" id="txtShip.*" class="txt c1"/></td>
 						<td><input type="text" id="txtSpec.*" class="txt c1"/></td>
+						<td><input type="text" id="txtCaseno.*" class="txt c1"/></td>
+						<td><input type="text" id="txtCaseno2.*" class="txt c1"/></td>
 						<td>
 							<input type="button" id="btnStraddrno.*" value="." style="width:1%;float:left;">
 							<input id="txtStraddrno.*" type="text" style="width: 25%;float:left;"/>
 							<input id="txtStraddr.*" type="text" style="width: 55%;float:left;"/>
 						</td>
-						<td><input type="text" id="txtCaseno.*" class="txt c1"/></td>
 						<td>
 							<input type="button" id="btnEndaddrno.*" value="." style="width:1%;float:left;">
 							<input id="txtEndaddrno.*" type="text" style="width: 25%;float:left;"/>
 							<input id="txtEndaddr.*" type="text" style="width: 55%;float:left;"/>
 						</td>
-						<td><input type="text" id="txtCaseno2.*" class="txt c1"/></td>
 						<td><input type="text" id="txtMount.*" class="txt num c1"/></td>
 						<td><input type="text" id="txtPrice.*" class="txt num c1"/></td>
 						<td><input type="text" id="txtTotal.*" class="txt num c1"/></td>
