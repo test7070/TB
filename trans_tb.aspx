@@ -31,9 +31,9 @@
             q_desc = 1;
             q_xchg = 1;
             brwCount2 = 15;
-            aPop = new Array(['txtStraddrno','lblStraddr','addr2','noa,addr','txtStraddrno,txtStraddr','addr2_b.aspx']
-                ,['txtEndaddrno','lblEndaddr','addr2','noa,addr','txtEndaddrno,txtEndaddr','addr2_b.aspx']
-                ,['txtUccno','lblProductno','ucc','noa,product','txtUccno,txtProduct','ucc_b.aspx']
+            aPop = new Array(['txtStraddrno','lblStraddr_tb','addr2','noa,addr','txtStraddrno,txtStraddr','addr2_b.aspx']
+                ,['txtEndaddrno','lblEndaddr_tb','addr2','noa,addr','txtEndaddrno,txtEndaddr','addr2_b.aspx']
+                ,['txtUccno','lblUcc','ucc','noa,product','txtUccno,txtProduct','ucc_b.aspx']
                 ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
                 ,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
                 ,['txtCarno', 'lblCarno', 'car2', 'a.noa,driver,driverno', 'txtCarno,txtDriver,txtDriverno', 'car2_b.aspx']
@@ -742,16 +742,16 @@
                         <td><select id="cmbCarteamno" class="txt c1"> </select></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblCarno" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
                         <td><input id="txtCarno"  type="text" class="txt c1"/></td>
-                        <td><span> </span><a id="lblDriver" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
                         <td colspan="2">
                             <input id="txtDriverno"  type="text" style="float:left;width:50%;"/>
                             <input id="txtDriver"  type="text" style="float:left;width:50%;"/>
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblCust" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
                         <td colspan="3">
                             <input id="txtCustno"  type="text" style="float:left;width:30%;"/>
                             <input id="txtComp"  type="text" style="float:left;width:70%;"/>
@@ -760,19 +760,19 @@
                         
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblStraddr_tb" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblStraddr_tb" class="lbl btn"> </a></td>
                         <td colspan="3">
                             <input id="txtStraddrno"  type="text" style="float:left;width:30%;"/>
                             <input id="txtStraddr"  type="text" style="float:left;width:70%;"/>
                         </td>
-                        <td><span> </span><a id="lblEndaddr_tb" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblEndaddr_tb" class="lbl btn"> </a></td>
                         <td colspan="3">
                             <input id="txtEndaddrno"  type="text" style="float:left;width:30%;"/>
                             <input id="txtEndaddr"  type="text" style="float:left;width:70%;"/>
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblUcc" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblUcc" class="lbl btn"> </a></td>
                         <td colspan="3">
                             <input id="txtUccno"  type="text" style="float:left;width:30%;"/>
                             <input id="txtProduct"  type="text" style="float:left;width:70%;"/>
@@ -846,7 +846,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id="lblBoat" class="lbl"> </a></td>
+                        <td><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
                         <td colspan="2">
                             <input id="txtBoatno"  type="text" style="float:left;width:50%;"/>
                             <input id="txtBoat"  type="text" style="float:left;width:50%;"/>
