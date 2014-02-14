@@ -127,13 +127,14 @@
                     this.priceChange();
                 },
                 priceChange : function(){
+                    var t_custno = $.trim($('#txtCustno').val());
                     var t_straddrno = $.trim($('#txtStraddrno').val());
                     var t_endaddrno = $.trim($('#txtEndaddrno').val());
                     var t_productno = $.trim($('#txtUccno').val());
                     var t_date = $.trim($('#txtTrandate').val());
                     var t_unit = $.trim($('#txtUnit').val());
                     
-                    t_where = "b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.custunit='"+t_unit+"'";
+                    t_where = "a.custno='"+t_custno+"' and b.straddrno='"+t_straddrno+"' and b.endaddrno='"+t_endaddrno+"' and b.productno='"+t_productno+"' and a.datea<='"+t_date+"' and a.custunit='"+t_unit+"'";
                     q_gt('addr_tb', "where=^^"+t_where+"^^", 0, 0, 0, 'getPrice_cust');
                 },
                 checkData : function(){

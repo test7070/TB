@@ -36,7 +36,8 @@
             aPop = new Array(['txtStraddrno', 'lblStraddr', 'addr2', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr2_b.aspx'],
                              ['txtEndaddrno', 'lblEndaddr', 'addr2', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr2_b.aspx'],
                              ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
-                             ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx']);
+                             ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx'],
+                             ['txtCustno_', '', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -356,7 +357,7 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 950px;
+                width: 1200px;
             }
             .tbbs a {
                 font-size: medium;
@@ -455,6 +456,7 @@
                     <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
                     </td>
                     <td align="center" style="width:80px;"><a id='lblDatea_s'> </a></td>
+                    <td align="center" style="width:120px;"><a id='lblCust_s'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverunit_tb'> </a><br>計價方式</td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice_tb'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverunit2_tb'> </a><br>計價方式</td>
@@ -471,6 +473,10 @@
                     <input id="txtNoq.*" type="text" style="display: none;" />
                     </td>
                     <td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
+                    <td>
+                        <input type="text" id="txtCustno.*" style="width:45%;float:left;"/>
+                        <input type="text" id="txtCust.*" style="width:45%;float:left;"/>
+                    </td>
                     <td><input type="text" id="txtDriverunit.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;"/></td>
                     <td><input type="text" id="txtDriverunit2.*" style="width:95%;"/></td>
