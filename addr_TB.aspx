@@ -456,7 +456,7 @@
                     <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
                     </td>
                     <td align="center" style="width:80px;"><a id='lblDatea_s'> </a></td>
-                    <td align="center" style="width:120px;"><a id='lblCust_s'> </a></td>
+                    <td align="center" style="width:120px;"><a id='lblCust_tb'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverunit_tb'> </a><br>計價方式</td>
                     <td align="center" style="width:80px;"><a id='lblDriverprice_tb'> </a></td>
                     <td align="center" style="width:80px;"><a id='lblDriverunit2_tb'> </a><br>計價方式</td>
