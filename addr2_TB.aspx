@@ -26,8 +26,8 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'noa';
-            brwCount2 = 20;
+            brwKey = "noa";
+            brwCount2 = 5;
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -322,18 +322,6 @@
                         <td><span> </span><a id='lblAddr' class="lbl"> </a></td>
                         <td colspan="3">
                         <input id="txtAddr" type="text" class="txt c1"/>
-                        </td>
-                    </tr>
-                    <tr style="display:none;">
-                        <td><span> </span><a id='lblS1' class="lbl"> </a></td>
-                        <td>
-                        <input id="txtS1" type="text" class="txt c1" />
-                        </td>
-                    </tr>
-                    <tr style="display:none;">
-                        <td><span> </span><a id='lblS2' class="lbl"> </a></td>
-                        <td>
-                        <input id="txtS2" type="text" class="txt c1"/>
                         </td>
                     </tr>
                 </table>
