@@ -393,6 +393,9 @@
 				q_gt('umms', t_where, 0, 0, 0, 'btnModi', r_accy);
 			}
 			function btnPrint() {
+			    //峻富
+			    //q_box('z_trd_ef.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+			    
 				q_box('z_trd_tb.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
 			}
 			function wrServer(key_value) {
