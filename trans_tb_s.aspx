@@ -8,6 +8,7 @@
         <script src='../script/qj_mess.js' type="text/javascript"></script>
         <script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <script src="../script/qbox.js" type="text/javascript"> </script>
         <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
         <script src="css/jquery/ui/jquery.ui.core.js"> </script>
         <script src="css/jquery/ui/jquery.ui.widget.js"> </script>
