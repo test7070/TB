@@ -205,6 +205,8 @@
                 
                 bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbCstype",' ,領,交,送');
+                
                 $("#cmbCalctype").focus(function() {
                     var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
                     $("#cmbCalctype").attr('size', len + "");
@@ -757,7 +759,8 @@
                             <input id="txtComp"  type="text" style="float:left;width:70%;"/>
                             <input id="txtNick" type="text" style="display:none;"/>
                         </td>
-                        
+                        <td><span> </span><a id="lblCstype" class="lbl">作業</a></td>
+						<td><select id="cmbCstype" class="txt c1"> </select></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblStraddr_tb" class="lbl btn"> </a></td>
