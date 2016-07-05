@@ -206,13 +206,14 @@
                 bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbCstype",' ,領,交,送');
+                q_cmbParse("cmbCasetype", "20'',40''");
                 
                 $("#cmbCalctype").focus(function() {
-                    var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
+                    /*var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
                     $("#cmbCalctype").attr('size', len + "");
-                    $(this).data('curValue',$(this).val());
+                    $(this).data('curValue',$(this).val());*/
                 }).blur(function() {
-                    $("#cmbCalctype").attr('size', '1');
+                    //$("#cmbCalctype").attr('size', '1');
                 }).change(function(e){
                     trans.refresh();
                     trans.calctypeChange();
@@ -847,6 +848,8 @@
                             <input id="txtCaseno"  type="text" style="float:left;width:50%;"/>
                             <input id="txtCaseno2"  type="text" style="float:left;width:50%;"/>
                         </td>
+                        <td><span> </span><a id="lblCasetype" class="lbl"> </a></td>
+						<td><select id="cmbCasetype" class="txt c1"> </select></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
