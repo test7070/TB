@@ -85,7 +85,7 @@
                 $('#txtAddr').focus();
             }
             function btnPrint() {
-                q_box("z_addr2_tb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2_RJ', "95%", "95%", q_getMsg('popZ_addr2_RJ'));
+               // q_box("z_addr2_tb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy, 'z_addr2_RJ', "95%", "95%", q_getMsg('popZ_addr2_RJ'));
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
