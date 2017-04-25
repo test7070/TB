@@ -674,7 +674,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2000px;
+				width: 1700px;
 			}
 			.dbbt {
 				width: 2000px;
@@ -772,9 +772,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="5">
-							<textarea id="txtMemo" class="txt c1" style="height:75px;"> </textarea>
-						</td>
+						<td colspan="5"><input type="text" id="txtMemo" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblBmile" class="lbl">上次里程</a></td>
@@ -810,19 +808,18 @@
 					<td align="center" style="width:60px;"><a>作業</a></td>
 					<td align="center" style="width:200px;"><a>貨主</a></td>
 					<td align="center" style="width:200px;"><a>船公司</a></td>
-					<td align="center" style="width:400px;"><a>起迄點</a></td>
+					<td align="center" style="width:200px;"><a>起迄點</a></td>
 					<td align="center" style="width:60px;"><a>E／F</a></td>
 					<td align="center" style="width:60px;"><a>櫃型</a></td>
-					<td align="center" style="width:250px;"><a>櫃號</a></td>
+					<td align="center" style="width:130px;"><a>櫃號</a></td>
 					
 					<td align="center" style="width:60px;"><a>應收<br>金額</a></td>
-					<td align="center" style="width:60px;"><a>折扣</a></td>
 					<td align="center" style="width:60px;"><a>應付<br>金額</a></td>
 					<td align="center" style="width:100px;"><a>P／O</a></td>
 					<td align="center" style="width:100px;"><a>S／O</a></td>
 					<td align="center" style="width:100px;"><a>憑單號碼</a></td>
 					<td align="center" style="width:120px;"><a>備註</a></td>
-					<td align="center" style="width:100px;"><a>訂單<br>編號</a></td>
+					<td align="center" style="width:150px;"><a>訂單編號</a></td>
 					<td style="display:none"> </td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -849,11 +846,11 @@
 						<input type="button" id="btnBoat.*" style="display:none;"/>
 					</td>
 					<td>
-						<input type="text" id="txtStraddrno.*" style="float:left;width:20%;"/>
-						<input type="text" id="txtStraddr.*" style="float:left;width:25%;"/>
+						<input type="text" id="txtStraddrno.*" style="float:left;width:30%;"/>
+						<input type="text" id="txtStraddr.*" style="float:left;width:60%;"/>
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
-						<input type="text" id="txtEndaddrno.*" style="float:left;width:20%;"/>
-						<input type="text" id="txtEndaddr.*" style="float:left;width:25%;"/>
+						<input type="text" id="txtEndaddrno.*" style="float:left;width:30%;"/>
+						<input type="text" id="txtEndaddr.*" style="float:left;width:60%;"/>
 						<input type="button" id="btnEndaddr.*" style="display:none;"/>
 					</td>
 					
@@ -861,12 +858,11 @@
 					<td><input type="text" id="txtFill.*" list="listEf" style="width:95%;"/></td>
 					<td><input type="text" id="txtCasetype.*" list="listCasetype" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtCaseno.*" style="float:left;width:45%;"/>
-						<input type="text" id="txtCaseno2.*" style="float:left;width:45%;"/>
+						<input type="text" id="txtCaseno.*" style="float:left;width:95%;"/>
+						<input type="text" id="txtCaseno2.*" style="float:left;width:95%;"/>
 						<input type="text" id="txtMount.*" style="display:none;"/>
 					</td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
-					<td><input type="text" id="txtDiscount.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtPo.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtSo.*" style="width:95%;"/></td>
