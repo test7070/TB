@@ -129,7 +129,7 @@
 					<td><input class="txt" id="txtCarno" type="text" style="width:220px;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek' style="width:90px;"><a id='lblCust'>客戶</a></td>
+					<td class='seek' style="width:90px;"><a id='lblCust'>貨主</a></td>
 					<td><input class="txt" id="txtCust" type="text" style="width:220px;" /></td>
 				</tr>
 				<tr class='seek_tr'>
