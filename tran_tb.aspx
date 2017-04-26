@@ -110,14 +110,14 @@
 				for(var i=0;i<t_ef.length;i++){
 					$('#listEf').append('<option value="'+t_ef[i]+'"></option>');
 				}
-				var t_casetype = ['20','40'];
+				var t_casetype = ['20呎','40呎八半','40呎九半','20呎冷凍櫃','40呎冷凍櫃','平板櫃','開頂櫃'];
 				for(var i=0;i<t_casetype.length;i++){
 					$('#listCasetype').append('<option value="'+t_casetype[i]+'"></option>');
 				}
 				
 				$('#btnOrde').click(function(e){
                 	var t_where ='';
-                	q_box("tranordetb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),noa:$('#txtNoa').val(),chk1:$('#chkChk1').prop('checked')?1:0,chk2:$('#chkChk2').prop('checked')?1:0}), "tranorde_tran", "95%", "95%", '');
+                	q_box("tranordetb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({project:q_getPara('sys.project').toUpperCase(),noa:$('#txtNoa').val(),chk1:$('#chkChk1').prop('checked')?1:0,chk2:$('#chkChk2').prop('checked')?1:0,condition:''}), "tranorde_tran", "95%", "95%", '');
                 });
                 
                 $('#txtBmile').change(function(e){
@@ -335,8 +335,8 @@
                         	}
                         	while(q_bbsCount<as.length)
                         		$('#btnPlus').click();
-                    		q_gridAddRow(bbsHtm, 'tbbs', 'txtCstype,txtOrdeno,txtCustno,txtComp,txtStraddrno,txtStraddr,txtEndaddrno,txtEndaddr,txtMemo'
-                        	, as.length, as, 'typea,noa,custno,cust,addrno,addr,addrno2,addr2,memo', '','');
+                    		q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtCustno,txtComp,txtBoat,txtStraddrno,txtStraddr,txtEndaddrno,txtEndaddr,txtMemo,txtCasetype,txtCaseno,txtCaseno2,txtSo'
+                        	, as.length, as, 'noa,custno,cust,vocc,addrno,addr,addrno2,addr2,memo,casetype,caseno,caseno2,so', '','');
                         }else{
                         	Unlock(1);
                         }
@@ -810,7 +810,7 @@
 					<td align="center" style="width:200px;"><a>船公司</a></td>
 					<td align="center" style="width:200px;"><a>起迄點</a></td>
 					<td align="center" style="width:60px;"><a>E／F</a></td>
-					<td align="center" style="width:60px;"><a>櫃型</a></td>
+					<td align="center" style="width:100px;"><a>櫃型</a></td>
 					<td align="center" style="width:130px;"><a>櫃號</a></td>
 					
 					<td align="center" style="width:60px;"><a>應收<br>金額</a></td>
@@ -841,16 +841,16 @@
 						<input type="button" id="btnCust.*" style="display:none;"/>
 					</td>
 					<td>
-						<input type="text" id="txtBoatno.*" style="float:left;width:30%;"/>
-						<input type="text" id="txtBoat.*" style="float:left;width:60%;"/>
+						<input type="text" id="txtBoatno.*" style="display:none;"/>
+						<input type="text" id="txtBoat.*" style="float:left;width:95%;"/>
 						<input type="button" id="btnBoat.*" style="display:none;"/>
 					</td>
 					<td>
 						<input type="text" id="txtStraddrno.*" style="float:left;width:30%;"/>
 						<input type="text" id="txtStraddr.*" style="float:left;width:60%;"/>
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
-						<input type="text" id="txtEndaddrno.*" style="float:left;width:30%;"/>
-						<input type="text" id="txtEndaddr.*" style="float:left;width:60%;"/>
+						<input type="text" id="txtEndaddrno.*" style="display:none;float:left;width:30%;"/>
+						<input type="text" id="txtEndaddr.*" style="display:none;float:left;width:60%;"/>
 						<input type="button" id="btnEndaddr.*" style="display:none;"/>
 					</td>
 					

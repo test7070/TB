@@ -16,6 +16,9 @@
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
        		brwCount = -1;
 			brwCount2 = -1;
+			
+			var _para = {};
+			
             $(document).ready(function() {
                 main();
             });
@@ -28,7 +31,10 @@
                 var t_para = new Array();
 	            try{
 	            	t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
-	            	t_content = "where=^^['"+t_para.project+"','"+t_para.noa+"',"+t_para.chk1+","+t_para.chk2+")^^";
+	            	_para = t_para;
+	            	if(t_para.condition.length>0)
+	            		$('#txtCondition').val(t_para.condition);
+	            	t_content = "where=^^['"+t_para.project+"','"+t_para.noa+"',"+t_para.chk1+","+t_para.chk2+",'"+t_para.condition+"')^^";
 	            }catch(e){
 	            }    
                 brwCount = -1;
@@ -39,6 +45,13 @@
 				$('#btnPrev').hide();
 				$('#btnNext').hide();
 				$('#btnBott').hide();
+				
+				$('#btnSearch').click(function() {
+					var t_condition = $.trim($('#txtCondition').val());
+					var t_para = _para;
+					t_para.condition = t_condition;
+					location.href = "http://"+location.host +location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy+";"+JSON.stringify(t_para);
+				});
 			}
             function q_gtPost(t_name) {
 				switch (t_name) {
@@ -115,13 +128,20 @@
 					<td align="center" style="width:25px;"> </td>
 					<td align="center" style="width:50px;"><a>趟次</a></td>
 					<td align="center" style="width:60px;"><a>類型</a></td>
-					<td align="center" style="width:120px;"><a>訂單編號</a></td>
+					<td align="center" style="width:80px;"><a>結關日<BR>重櫃期限</a></td>
+					<td align="center" style="width:100px;"><a>船公司</a></td>
+					<td align="center" style="width:120px;display:none;"><a>訂單編號</a></td>
 					<td align="center" style="width:150px;"><a>貨主</a></td>
 					<td align="center" style="width:100px;"><a>品名</a></td>
-					<td align="center" style="width:150px;"><a>起點</a></td>
-					<td align="center" style="width:150px;"><a>迄點</a></td>
-					<td align="center" style="width:60px;"><a>訂單<BR>數量</a></td>
-					<td align="center" style="width:60px;"><a>已派<BR>數量</a></td>
+					<td align="center" style="width:150px;"><a>起迄點</a></td>
+					<td align="center" style="width:150px;display:none;"><a>迄點</a></td>
+					<td align="center" style="width:80px;"><a>櫃型</a></td>
+					<td align="center" style="width:100px;"><a>櫃號</a></td>
+					<td align="center" style="width:100px;"><a>S／O</a></td>
+					<td align="center" style="width:40px;"><a>領</a></td>
+					<td align="center" style="width:40px;"><a>送</a></td>
+					<td align="center" style="width:40px;"><a>收</a></td>
+					<td align="center" style="width:40px;"><a>交</a></td>
 				</tr>
 			</table>
 		</div>
@@ -132,20 +152,31 @@
 					<td align="center" style="width:25px;"> </td>
 					<td align="center" style="width:50px;"> </td>
 					<td align="center" style="width:60px;"> </td>
-					<td align="center" style="width:120px;"> </td>
+					<td align="center" style="width:80px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:120px;display:none;"> </td>
 					<td align="center" style="width:150px;"> </td>
 					<td align="center" style="width:100px;"> </td>
 					<td align="center" style="width:150px;"> </td>
-					<td align="center" style="width:150px;"> </td>
-					<td align="center" style="width:60px;"> </td>
-					<td align="center" style="width:60px;"> </td>
+					<td align="center" style="width:150px;display:none;"> </td>
+					<td align="center" style="width:80px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:100px;"> </td>
+					<td align="center" style="width:40px;"> </td>
+					<td align="center" style="width:40px;"> </td>
+					<td align="center" style="width:40px;"> </td>
+					<td align="center" style="width:40px;"> </td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td style="width:25px;"><input id="chkSel.*" type="checkbox"/></td>
 					<td style="width:25px;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td style="width:60px;"><input id="txtN.*" type="text" style="width:95%;text-align: center;"/></td>
-					<td style="width:60px;"><input id="txtTypea.*" type="text" style="width:95%;" readonly="readonly"/></td>
-					<td style="width:120px;">
+					<td style="width:50px;"><input id="txtN.*" type="text" style="width:95%;text-align: center;"/></td>
+					<td style="width:60px;"><input id="txtStype.*" type="text" style="width:95%;" readonly="readonly"/></td>
+					<td style="width:80px;"><input id="txtDatea2.*" type="text" style="width:95%;" readonly="readonly"/></td>
+					<td style="width:100px;">
+						<input id="txtVocc.*" type="text" style="float:left;width:95%;"  readonly="readonly" />
+					</td>
+					<td style="width:120px;display:none;">
 						<input id="txtNoa.*" type="text" style="float:left;width:95%;"  readonly="readonly" />
 					</td>
 					<td style="width:150px;">
@@ -160,19 +191,44 @@
 						<input id="txtAddrno.*" type="text" style="display:none;"/>
 						<input id="txtAddr.*" type="text" style="float:left;width:95%;" readonly="readonly" />
 					</td>
-					<td style="width:150px;">
+					<td style="width:150px;display:none;">
 						<input id="txtAddrno2.*" type="text" style="display:none;"/>
 						<input id="txtAddr2.*" type="text" style="float:left;width:95%;" readonly="readonly" />
 					</td>
-					<td style="width:60px;">
-						<input id="txtMount.*" type="text" style="float:left;width:95%;text-align: right;"  readonly="readonly" />
+					<td style="width:80px;">
+						<input id="txtCasetype.*" type="text" style="float:left;width:95%;" readonly="readonly" />
 					</td>
-					<td style="width:60px;">
-						<input id="txtGmount.*" type="text" style="float:left;width:95%;text-align: right;"  readonly="readonly" />
+					<td style="width:100px;">
+						<input id="txtCaseno.*" type="text" style="float:left;width:95%;" readonly="readonly" />
+						<input id="txtCaseno2.*" type="text" style="display:none;" readonly="readonly" />
+					</td>
+					<td style="width:100px;">
+						<input id="txtSo.*" type="text" style="float:left;width:95%;" readonly="readonly" />
+					</td>
+					<td style="width:40px;">
+						<input id="chkChk1.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+					</td>
+					<td style="width:40px;">
+						<input id="chkChk2.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+					</td>
+					<td style="width:40px;">
+						<input id="chkChk3.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+					</td>
+					<td style="width:40px;">
+						<input id="chkChk4.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
 					</td>
 				</tr>
 			</table>
 		</div>
+		<div>
+			<a>類型、櫃號</a>
+			<input class="txt" id="txtCondition" list="listTypea" type="text" style="width:150px;" />
+			<datalist id="listTypea"> 
+				<option>進口</option>
+				<option>出口</option>
+			</datalist>
+			<input type="button" id="btnSearch" style="border-style: none; width: 26px; height: 26px; cursor: pointer; background: url(../image/search_32.png) 0px 0px no-repeat;background-size: 100%;">
+		 </div>
 		<!--#include file="../inc/pop_ctrl.inc"-->
 	</body>
 </html>
