@@ -318,6 +318,7 @@
                         		$('#btnMinus_'+i).click();
                         	as = b_ret;
                         	
+                        	//多筆匯入---趟次
                         	for(var i=0;i<as.length;i++){
                         		var n = parseInt(as[i].n);
                         		if(n>1){
@@ -333,10 +334,63 @@
                         			as = as.concat(b);
                         		}
                         	}
+                        	//多筆匯入---領送收交
+                        	var tmp = new Array();
+                        	for(var i=0;i<as.length;i++){
+                        		var item = new Array();
+                        		if(as[i].ischk1=='false' && as[i].chk1=='true')
+                        			item.push('chk1');
+                        		if(as[i].ischk2=='false' && as[i].chk2=='true')
+                        			item.push('chk2');
+                        		if(as[i].ischk3=='false' && as[i].chk3=='true')
+                        			item.push('chk3');
+                    			if(as[i].ischk4=='false' && as[i].chk4=='true')
+                        			item.push('chk4');
+                        		tmp.push({item:item,as:$.extend(true,[], as.slice(i,i+1))});
+                        	}
+                        	//console.log(tmp);
+                        	var as = new Array();
+                        	for(var i=0;i<tmp.length;i++){
+                        		if(tmp[i].item.length<=1){
+                        			as.push(tmp[i].as[0]);
+                        		}else{
+                        			tmp[i].as[0].chk1='false';
+                        			tmp[i].as[0].chk2='false';
+                        			tmp[i].as[0].chk3='false';
+                        			tmp[i].as[0].chk4='false';
+                        			for(var j=0;j<tmp[i].item.length;j++){
+                        				var t = $.extend(true,[], tmp[i].as);
+                        				t[0][tmp[i].item[j]] = 'true';
+                        				as.push(t[0]);
+                        			}
+                        		}
+                        	}
+                        	//console.log(as);
+                        	//依狀態判斷  空重櫃
+                        	for(var i=0;i<as.length;i++){
+                        		if(as[i].ischk1=='false' && as[i].chk1=='true'){
+                        			as[i].cstype='領';
+                        			as[i].fill=(as[i].typea=='進口'?'F':'E');
+                        		}
+                        		if(as[i].ischk2=='false' && as[i].chk2=='true'){
+                        			as[i].cstype='送';
+                        			as[i].fill=(as[i].typea=='進口'?'F':'E');
+                        		}
+                        		if(as[i].ischk3=='false' && as[i].chk3=='true'){
+                        			as[i].cstype='收';
+                        			as[i].fill=(as[i].typea=='進口'?'E':'F');
+                        		}
+                        		if(as[i].ischk4=='false' && as[i].chk4=='true'){
+                        			as[i].cstype='交';
+                        			as[i].fill=(as[i].typea=='進口'?'E':'F');
+                        		}
+                        			
+                        	}
+                        	
                         	while(q_bbsCount<as.length)
                         		$('#btnPlus').click();
-                    		q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtCustno,txtComp,txtBoat,txtStraddrno,txtStraddr,txtEndaddrno,txtEndaddr,txtMemo,txtCasetype,txtCaseno,txtCaseno2,txtSo'
-                        	, as.length, as, 'noa,custno,cust,vocc,addrno,addr,addrno2,addr2,memo,casetype,caseno,caseno2,so', '','');
+                    		q_gridAddRow(bbsHtm, 'tbbs', 'txtOrdeno,txtCustno,txtComp,txtBoat,txtStraddrno,txtStraddr,txtEndaddrno,txtEndaddr,txtMemo,txtCasetype,txtCaseno,txtCaseno2,txtSo,txtFill,txtCstype'
+                        	, as.length, as, 'noa,custno,cust,vocc,addrno,addr,addrno2,addr2,memo,casetype,caseno,caseno2,so,fill,cstype', '','');
                         }else{
                         	Unlock(1);
                         }
@@ -807,7 +861,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:60px;"><a>作業</a></td>
 					<td align="center" style="width:200px;"><a>貨主</a></td>
-					<td align="center" style="width:200px;"><a>船公司</a></td>
+					<td align="center" style="width:100px;"><a>船公司</a></td>
 					<td align="center" style="width:200px;"><a>起迄點</a></td>
 					<td align="center" style="width:60px;"><a>E／F</a></td>
 					<td align="center" style="width:100px;"><a>櫃型</a></td>
@@ -833,7 +887,7 @@
 						<input type="text" id="txtDatea.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtCstype.*" list="listCstype" style="width:95%;"/></td>
+					<td><input type="text" id="txtCstype.*" list="listCstype" style="width:95%;text-align: center;"/></td>
 					<td>
 						<input type="text" id="txtCustno.*" style="float:left;width:30%;"/>
 						<input type="text" id="txtComp.*" style="float:left;width:60%;"/>
@@ -855,7 +909,7 @@
 					</td>
 					
 					
-					<td><input type="text" id="txtFill.*" list="listEf" style="width:95%;"/></td>
+					<td><input type="text" id="txtFill.*" list="listEf" style="width:95%;text-align: center;"/></td>
 					<td><input type="text" id="txtCasetype.*" list="listCasetype" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCaseno.*" style="float:left;width:95%;"/>

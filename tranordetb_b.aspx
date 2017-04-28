@@ -68,13 +68,7 @@
 				
 				if (maxAbbsCount < abbs.length) {
 					for (var i = (abbs.length - (abbs.length - maxAbbsCount)); i < abbs.length; i++) {
-						//alert(abbs[i].chk1+'__'+abbs[i].chk2);
-						/*for(var j=0;j<w.$('#_orde').children().length;j++){
-							if(w.$('#_orde').children().eq(j).find('.ordeno').text()==abbs[i].noa+'-'+abbs[i].noq){
-								abbs[i]['sel'] = "true";
-								$('#chkSel_' + abbs[i].rec).attr('checked', true);
-							}
-						}*/
+						
 						for (var j = 0; j < w.q_bbsCount; j++) {
 							if (w.$('#txtOrdeno_' + j).val() == abbs[i].noa 
 								&& w.$('#txtNo2_' + j).val() == abbs[i].noq
@@ -112,6 +106,14 @@
 				});
 				for(var i=0;i<q_bbsCount;i++){
 					$('#lblNo_'+i).text((i+1));
+					if($('#chkIschk1_'+i).prop('checked'))
+						$('#chkChk1_'+i).attr('disabled','disabled');
+					if($('#chkIschk2_'+i).prop('checked'))
+						$('#chkChk2_'+i).attr('disabled','disabled');
+					if($('#chkIschk3_'+i).prop('checked'))
+						$('#chkChk3_'+i).attr('disabled','disabled');
+					if($('#chkIschk4_'+i).prop('checked'))
+						$('#chkChk4_'+i).attr('disabled','disabled');
 				}
 				//_readonlys(true);
 			}
@@ -126,7 +128,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px" ><input type="checkbox" id="checkAllCheckbox"/></td>
 					<td align="center" style="width:25px;"> </td>
-					<td align="center" style="width:50px;"><a>趟次</a></td>
+					<td align="center" style="width:50px;display:none;"><a>趟次</a></td>
 					<td align="center" style="width:60px;"><a>類型</a></td>
 					<td align="center" style="width:80px;"><a>結關日<BR>重櫃期限</a></td>
 					<td align="center" style="width:100px;"><a>船公司</a></td>
@@ -150,7 +152,7 @@
 				<tr style="display:none;">
 					<td align="center" style="width:25px;"> </td>
 					<td align="center" style="width:25px;"> </td>
-					<td align="center" style="width:50px;"> </td>
+					<td align="center" style="width:50px;display:none;"> </td>
 					<td align="center" style="width:60px;"> </td>
 					<td align="center" style="width:80px;"> </td>
 					<td align="center" style="width:100px;"> </td>
@@ -170,9 +172,9 @@
 				<tr style='background:#cad3ff;'>
 					<td style="width:25px;"><input id="chkSel.*" type="checkbox"/></td>
 					<td style="width:25px;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td style="width:50px;"><input id="txtN.*" type="text" style="width:95%;text-align: center;"/></td>
-					<td style="width:60px;"><input id="txtStype.*" type="text" style="width:95%;" readonly="readonly"/></td>
-					<td style="width:80px;"><input id="txtDatea2.*" type="text" style="width:95%;" readonly="readonly"/></td>
+					<td style="width:50px;display:none;"><input id="txtN.*" type="text" style="width:95%;text-align: center;"/></td>
+					<td style="width:60px;"><input id="txtStype.*" type="text" style="width:95%;text-align: center;" readonly="readonly"/></td>
+					<td style="width:80px;"><input id="txtDatea2.*" type="text" style="width:95%;text-align: center;" readonly="readonly"/></td>
 					<td style="width:100px;">
 						<input id="txtVocc.*" type="text" style="float:left;width:95%;"  readonly="readonly" />
 					</td>
@@ -206,16 +208,20 @@
 						<input id="txtSo.*" type="text" style="float:left;width:95%;" readonly="readonly" />
 					</td>
 					<td style="width:40px;">
-						<input id="chkChk1.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+						<input id="chkChk1.*" type="checkbox" style="float:left;width:95%;"/>
+						<input id='chkIschk1.*' type="checkbox" style="display:none;"/>
 					</td>
 					<td style="width:40px;">
-						<input id="chkChk2.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+						<input id="chkChk2.*" type="checkbox" style="float:left;width:95%;"/>
+						<input id='chkIschk2.*' type="checkbox" style="display:none;"/>
 					</td>
 					<td style="width:40px;">
-						<input id="chkChk3.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+						<input id="chkChk3.*" type="checkbox" style="float:left;width:95%;"/>
+						<input id='chkIschk3.*' type="checkbox" style="display:none;"/>
 					</td>
 					<td style="width:40px;">
-						<input id="chkChk4.*" type="checkbox" style="float:left;width:95%;" readonly="readonly" />
+						<input id="chkChk4.*" type="checkbox" style="float:left;width:95%;"/>
+						<input id='chkIschk4.*' type="checkbox" style="display:none;"/>
 					</td>
 				</tr>
 			</table>
