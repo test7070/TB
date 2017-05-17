@@ -148,17 +148,21 @@
 				});
 				q_popAssign();
 				q_langShow();
-				$('#txtDate1').mask('999/99/99');
-				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
-				$('#txtDate2').datepicker();
-				$('#txtTrandate1').mask('999/99/99');
-				$('#txtTrandate2').mask('999/99/99');
-				$('#txtTrandate1').datepicker();
-				$('#txtTrandate2').datepicker();
+				$('#txtDate1').mask(r_picd);
+				$('#txtDate2').mask(r_picd);
+				$('#txtTrandate1').mask(r_picd);
+				$('#txtTrandate2').mask(r_picd);
+				
 				$('#chkXcalctypes').children('input').attr('checked', 'checked');
 				$('#chkXcarkind').children('input').attr('checked', 'checked');
 				$('#chkXcarteam').children('input').attr('checked', 'checked');
+				
+				if(r_picd.length==9){
+					$('#txtDate1').datepicker();
+					$('#txtDate2').datepicker();
+					$('#txtTrandate1').datepicker();
+					$('#txtTrandate2').datepicker();
+				}
 			}
 		</script>
 	</head>
