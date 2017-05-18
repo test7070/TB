@@ -90,7 +90,7 @@
 					Lock(1, {
 						opacity : 0
 					});
-					if ($.trim($('#txtCustno').val()) == 0) {
+					if ($.trim($('#txtCustno').val()).length == 0) {
 						alert('請輸入客戶');
 						Unlock(1);
 						return false;
