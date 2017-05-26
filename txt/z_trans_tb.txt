@@ -240,7 +240,7 @@ z_trans_tb02:--z_trans_tb02  查詢區間不可超過三個月--- ref:z_tran01
 	)
 	set @cmd=
 	" select  a.carno,isnull(c.noa,''),isnull(c.kind,'') "+ 
-	" from  view_trans"+@t_accy+" a  "+
+	" from  view_trans a  "+
 	" left join car2 b on a.carno=b.carno"+
 	" left join carKind c on b.carkindno=c.noa"+
 	" left join calctypes d on d.noa+d.noq=a.calctype"+
@@ -325,7 +325,7 @@ z_trans_tb02:--z_trans_tb02  查詢區間不可超過三個月--- ref:z_tran01
 	" ,sum(round(a.price*a.mount,0))"+
 	" ,sum(round(a.price2*a.mount2*a.discount,0))"+
 	" ,sum(isnull(a.reserve,0))"+
-	" from view_trans"+@t_accy+" a"+
+	" from view_trans a"+
 	" left join car2 b on a.carno=b.carno"+
 	" left join #carkind c on b.carkindno=c.noa"+
 	" left  join  calctypes d on d.noa+d.noq=a.calctype "+
@@ -480,7 +480,7 @@ z_trans_tb02:--z_trans_tb02  查詢區間不可超過三個月--- ref:z_tran01
 		begin
 			--出車明細
 			set @bool = 0
-			set @cmd ="if exists(select noa from view_trans"+@t_accy+" where carno=@carno and trandate=@trandate) set @bool = 1 else set @bool = 0"
+			set @cmd ="if exists(select noa from view_trans where carno=@carno and trandate=@trandate) set @bool = 1 else set @bool = 0"
 			execute sp_executesql @cmd,N'@bool bit output,@carno nvarchar(20),@trandate nvarchar(10)',@bool=@bool output,@carno=@carno,@trandate=@trandate			
 			if(@bool=1 and patindex('%trans%',@t_filter)>0)
 			begin
@@ -488,7 +488,7 @@ z_trans_tb02:--z_trans_tb02  查詢區間不可超過三個月--- ref:z_tran01
 				values(0,'3',@trandate,@carkindno,@carno,@rate1,@tranmoney,@oilmoney,@profit,'司機','起迄地點','收入','里程數')
 				set @cmd =
 				" declare cursor_table2 cursor for"+
-				" select driver,straddr,total,miles from view_trans"+@t_accy+" where carno=@carno and trandate=@trandate"+
+				" select driver,straddr,total,miles from view_trans where carno=@carno and trandate=@trandate"+
 				" open cursor_table2"+
 				" fetch next from cursor_table2"+
 				" into @driver,@straddr,@total,@miles"+
@@ -841,7 +841,7 @@ z_trans_tb03:--z_trans_tb03 ref:z_tran17
 	else
 		set @cmd=@cmd+" ,sum(round(ISNULL(a.price2,0)*isnull(a.mount2,0),0))"
 	set @cmd=@cmd+",sum(ISNULL(a.miles,0)),sum(ISNULL(a.reserve,0))"+
-	" from view_trans"+@t_accy+" a "+ 
+	" from view_trans a "+ 
 	" left  join  calctypes  b  on  b.noa+b.noq=a.calctype"+
 	" where len(ISNULL(a.carno,''))>0 and  (b.noa is  not  null) and isnull(b.isoutside,0)=0"+
 	" and (a.datea  between  @t_bdate  and  @t_edate)"+
@@ -1159,7 +1159,7 @@ z_trans_tb03:--z_trans_tb03 ref:z_tran17
 	while(@@FETCH_STATUS <> -1)
 	begin
 		select @day=0
-		set @cmd="select @day=count(1) from (SELECT DISTINCT datea from view_trans"+@t_accy+" where carno=@carno and driverno=@driverno and LEFT(datea,6)=@mon)as a"
+		set @cmd="select @day=count(1) from (SELECT DISTINCT datea from view_trans  where carno=@carno and driverno=@driverno and LEFT(datea,6)=@mon)as a"
 		execute sp_executesql @cmd,N'@carno  nvarchar(20),@driverno  nvarchar(20),@mon nvarchar(10),@day  int  output'
 		,@carno=@carno,@driverno=@driverno,@mon=@mon,@day=@day  output
 		
@@ -1356,7 +1356,7 @@ z_trans_tb04:--z_trans_tb04 ref z_tran24
 	else
 		set @cmd=@cmd+" ,sum(round(ISNULL(a.price2,0)*isnull(a.mount2,0),0))"
 	set @cmd=@cmd+",sum(ISNULL(a.miles,0)),sum(ISNULL(a.reserve,0))"+
-	" from view_trans"+@t_accy+" a "+ 
+	" from view_trans  a "+ 
 	" left  join  calctypes  b  on  b.noa+b.noq=a.calctype"+
 	" where len(ISNULL(a.carno,''))>0 and  (b.noa is  not  null) and isnull(b.isoutside,0)=0"+
 	" and (a.datea  between  @t_bdate  and  @t_edate)"+
@@ -1674,7 +1674,7 @@ z_trans_tb04:--z_trans_tb04 ref z_tran24
 	while(@@FETCH_STATUS <> -1)
 	begin
 		select @day=0
-		set @cmd="select @day=count(1) from (SELECT DISTINCT datea from view_trans"+@t_accy+" where carno=@carno and driverno=@driverno and LEFT(datea,6)=@mon)as a"
+		set @cmd="select @day=count(1) from (SELECT DISTINCT datea from view_trans  where carno=@carno and driverno=@driverno and LEFT(datea,6)=@mon)as a"
 		execute sp_executesql @cmd,N'@carno  nvarchar(20),@driverno  nvarchar(20),@mon nvarchar(10),@day  int  output'
 		,@carno=@carno,@driverno=@driverno,@mon=@mon,@day=@day  output
 		
@@ -1878,7 +1878,7 @@ z_trans_tb05:--z_trans_tb05 ref z_tran26
 	else
 		set @cmd=@cmd+" ,sum(round(ISNULL(a.price2,0)*isnull(a.mount2,0),0))"
 	set @cmd=@cmd+",sum(ISNULL(a.miles,0)),sum(ISNULL(a.reserve,0))"+
-	" from view_trans"+@t_accy+" a "+ 
+	" from view_trans  a "+ 
 	" left  join  calctypes  b  on  b.noa+b.noq=a.calctype"+
 	" where len(ISNULL(a.carno,''))>0 and  (b.noa is  not  null) and isnull(b.isoutside,0)=0"+
 	" and (a.datea  between  @t_bdate  and  @t_edate)"+
@@ -2196,7 +2196,7 @@ z_trans_tb05:--z_trans_tb05 ref z_tran26
 	while(@@FETCH_STATUS <> -1)
 	begin
 		select @day=0
-		set @cmd="select @day=count(1) from (SELECT DISTINCT datea from view_trans"+@t_accy+" where carno=@carno and driverno=@driverno and LEFT(datea,6)=@mon)as a"
+		set @cmd="select @day=count(1) from (SELECT DISTINCT datea from view_trans  where carno=@carno and driverno=@driverno and LEFT(datea,6)=@mon)as a"
 		execute sp_executesql @cmd,N'@carno  nvarchar(20),@driverno  nvarchar(20),@mon nvarchar(10),@day  int  output'
 		,@carno=@carno,@driverno=@driverno,@mon=@mon,@day=@day  output
 		
@@ -2477,7 +2477,7 @@ z_trans_tb06:--z_trans_tb06 ref z_tran14
 		" ,a.inmount,a.pton,a.mount,a.price,a.total"+
 		" ,a.outmount,a.pton2,a.mount2,(isnull(a.price2,0)+isnull(a.price3,0)),a.discount,a.total2"+
 		" ,0,0,0,0,0,0,0"+
-		" from  view_trans"+@t_accy+"  a"+
+		" from  view_trans  a"+
 		" left join #carteam  b on a.carteamno=b.noa"+	
 		" left join #calctype c on a.calctype=c.noa"+
 		" left join carteam  d on a.carteamno=d.noa"+	
@@ -2717,7 +2717,7 @@ z_trans_tb07:--z_trans_tb07 ref z_tran28
 	"	,SUM(case when e.isoutside!=1 then isnull(mount2,0) else 0 end) outmount1"+
 	"	,SUM(case when e.isoutside=1 then (case when patindex('%out%',@t_option3)>0 then isnull(total2,0) else round(isnull(mount2,0)*isnull(price3,0),0) end) else 0 end) outmoney2"+
 	"	,SUM(case when e.isoutside=1 then isnull(mount2,0) else 0 end) outmount2"+
-	"	 from  view_trans"+@t_accy+"  a"+
+	"	 from  view_trans  a"+
 	"	 left join #carteam  b on a.carteamno=b.noa	"+
 	"	 left join #calctype c on a.calctype=c.noa"+
 	"	 left join carteam  d on a.carteamno=d.noa	"+
