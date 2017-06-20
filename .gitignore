@@ -2,9 +2,5 @@
 *.pyc
 *.pyo
 *.project
-<<<<<<< HEAD
-=======
-.project
->>>>>>> a11
 .git
 git
