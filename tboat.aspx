@@ -32,8 +32,8 @@
 			
 			aPop = new Array(
 				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtNick', 'cust_b.aspx'],
-				['txtStraddrno_', 'btnStraddrno_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx'],
-				['txtEndaddrno_', 'btnEndaddrno_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
+				['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx'],
+				['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -159,24 +159,38 @@
 			}
 
 			function bbsAssign() {
-				for (var j = 0; j < q_bbsCount; j++) {
-					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-						$('#txtMount_'+j).change(function(){
-							sum();
-						});
-						$('#txtPrice_'+j).change(function(){
-							sum();
-						});
-						$('#txtTotal_'+j).change(function(){
-							sum();
-						});
-						$('#txtCaseno_'+j).change(function(){
-							$(this).val($.trim($(this).val().toUpperCase()));
-						});
-						$('#txtCaseno2_'+j).change(function(){
-							$(this).val($.trim($(this).val().toUpperCase()));
-						});
-					}
+				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_' + i).text(i + 1);
+                	if($('#btnMinus_' + i).hasClass('isAssign'))
+                    	continue;
+                    $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnStraddr_'+n).click();
+                    });	
+                    $('#txtEndaddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnEndaddr_'+n).click();
+                    });		
+					$('#txtMount_'+i).change(function(){
+						sum();
+					});
+					$('#txtPrice_'+i).change(function(){
+						sum();
+					});
+					$('#txtTotal_'+i).change(function(){
+						sum();
+					});
+					$('#txtCaseno_'+i).change(function(){
+						$(this).val($.trim($(this).val().toUpperCase()));
+					});
+					$('#txtCaseno2_'+i).change(function(){
+						$(this).val($.trim($(this).val().toUpperCase()));
+					});
+						
 				}
 				_bbsAssign();
 			}
@@ -488,6 +502,8 @@
 						<td style="width:20px;">
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
+						<td style="width:20px;"> </td>
+						<td style="width:50px;"><a id='lblItemno_s'>車次</a></td>
 						<td style="width:70px;"><a id='lblTrandate_s'> </a></td>
 						<td style="width:110px;"><a id='lblBoatname_s'> </a></td>
 						<td style="width:80px;"><a id='lblShip_s'> </a></td>
@@ -505,21 +521,23 @@
 							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
 							<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
+						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td><input type="text" id="txtItemno.*" class="txt c1"/></td>
 						<td><input type="text" id="txtTrandate.*" class="txt c1"/></td>
 						<td><input type="text" id="txtBoatname.*" class="txt c1"/></td>
 						<td><input type="text" id="txtShip.*" class="txt c1"/></td>
-						<td><input type="text" id="txtSpec.*" class="txt c1"/></td>
+						<td><input type="text" id="txtSpec.*" class="txt c1" list="listSpec"/></td>
 						<td><input type="text" id="txtCaseno.*" class="txt c1"/></td>
 						<td><input type="text" id="txtCaseno2.*" class="txt c1"/></td>
 						<td>
-							<input type="button" id="btnStraddrno.*" value="." style="width:1%;float:left;">
-							<input id="txtStraddrno.*" type="text" style="width: 25%;float:left;"/>
-							<input id="txtStraddr.*" type="text" style="width: 55%;float:left;"/>
+							<input id="txtStraddrno.*" type="text" style="width: 35%;float:left;"/>
+							<input id="txtStraddr.*" type="text" style="width: 50%;float:left;"/>
+							<input type="button" id="btnStraddr.*" style="display:none;">
 						</td>
 						<td>
-							<input type="button" id="btnEndaddrno.*" value="." style="width:1%;float:left;">
-							<input id="txtEndaddrno.*" type="text" style="width: 25%;float:left;"/>
-							<input id="txtEndaddr.*" type="text" style="width: 55%;float:left;"/>
+							<input id="txtEndaddrno.*" type="text" style="width: 35%;float:left;"/>
+							<input id="txtEndaddr.*" type="text" style="width: 50%;float:left;"/>
+							<input type="button" id="btnEndaddr.*" style="display:none;">
 						</td>
 						<td><input type="text" id="txtMount.*" class="txt num c1"/></td>
 						<td><input type="text" id="txtPrice.*" class="txt num c1"/></td>
@@ -529,5 +547,11 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<datalist id="listSpec"> 
+			<option>20'E</option>
+			<option>40'E</option>
+			<option>20'F</option>
+			<option>40'F</option>
+		</datalist>
 	</body>
 </html>

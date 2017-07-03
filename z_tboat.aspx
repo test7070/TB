@@ -56,10 +56,10 @@
 				q_getFormat();
 				q_langShow();
 
-				$('#txtXtrandate1').mask('999/99/99');
-				$('#txtXtrandate1').datepicker();
-				$('#txtXtrandate2').mask('999/99/99');
-				$('#txtXtrandate2').datepicker();
+				$('#txtXtrandate1').mask(r_picd);
+				//$('#txtXtrandate1').datepicker();
+				$('#txtXtrandate2').mask(r_picd);
+				//$('#txtXtrandate2').datepicker();
 
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
