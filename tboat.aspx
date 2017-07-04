@@ -31,9 +31,10 @@
 			brwCount2 = 8;
 			
 			aPop = new Array(
-				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtNick', 'cust_b.aspx'],
-				['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx'],
-				['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtNick', 'cust_b.aspx']
+				,['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx']
+				,['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
+				,['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,nick', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -163,6 +164,12 @@
 					$('#lblNo_' + i).text(i + 1);
                 	if($('#btnMinus_' + i).hasClass('isAssign'))
                     	continue;
+                	$('#txtCardealno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnCardeal_'+n).click();
+                    });	
                     $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -384,7 +391,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1260px;
+				width: 1400px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -503,8 +510,8 @@
 							<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:50px;"><a id='lblItemno_s'>車次</a></td>
-						<td style="width:70px;"><a id='lblTrandate_s'> </a></td>
+						<td style="width:120px;"><a id='lblCardeal_s'>車行</a></td>
+						<td style="width:80px;"><a id='lblTrandate_s'> </a></td>
 						<td style="width:110px;"><a id='lblBoatname_s'> </a></td>
 						<td style="width:80px;"><a id='lblShip_s'> </a></td>
 						<td style="width:80px;"><a id='lblSpec_s'> </a></td>
@@ -515,6 +522,7 @@
 						<td style="width:60px;"><a id='lblMount_s'> </a></td>
 						<td style="width:60px;"><a id='lblPrice_s'> </a></td>
 						<td style="width:80px;"><a id='lblTotal_s'> </a></td>
+						<td style="width:120px;"><a id='lblMemo_s'>備註</a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
@@ -522,7 +530,11 @@
 							<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input type="text" id="txtItemno.*" class="txt c1"/></td>
+						<td>
+							<input type="text" id="txtCardealno.*" class="txt" style="float:left;width:40%;"/>
+							<input type="text" id="txtCardeal.*" class="txt" style="float:left;width:50%;"/>
+							<input type="button" id="btnCardeal.*" style="display:none;">
+						</td>
 						<td><input type="text" id="txtTrandate.*" class="txt c1"/></td>
 						<td><input type="text" id="txtBoatname.*" class="txt c1"/></td>
 						<td><input type="text" id="txtShip.*" class="txt c1"/></td>
@@ -542,6 +554,7 @@
 						<td><input type="text" id="txtMount.*" class="txt num c1"/></td>
 						<td><input type="text" id="txtPrice.*" class="txt num c1"/></td>
 						<td><input type="text" id="txtTotal.*" class="txt num c1"/></td>
+						<td><input type="text" id="txtMemo.*" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
