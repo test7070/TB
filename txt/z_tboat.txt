@@ -57,7 +57,7 @@ z_tboat01:-- z_tboat.txt/z_tboat01
 	left join tboat b on a.noa=b.noa
 	where (len(@t_noa)=0 or a.noa=@t_noa)
 	and (len(@t_type)=0 or CHARINDEX(','+b.typea+',',','+@t_type+',')>0)
-	and b.datea between @t_btrandate and @t_etrandate 
+	and a.trandate between @t_btrandate and @t_etrandate 
 	and b.custno between @t_bcustno and @t_ecustno
 	and (len(@t_straddrno)=0 or a.straddrno=@t_straddrno)
 	and (len(@t_endaddrno)=0 or a.endaddrno=@t_endaddrno)
