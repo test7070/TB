@@ -215,7 +215,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_tboat.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
+				q_box("z_tboat.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + JSON.stringify({noa:trim($('#txtNoa').val())}) + ";" + r_accy + "_" + r_cno, 'tboat', "95%", "95%", m_print);
 			}
 
 			function wrServer(key_value) {

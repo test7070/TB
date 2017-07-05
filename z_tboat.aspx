@@ -69,7 +69,17 @@
 				//$('#txtXtrandate1').datepicker();
 				$('#txtXtrandate2').mask(r_picd);
 				//$('#txtXtrandate2').datepicker();
-
+				
+				var t_para = new Array();
+	            try{
+	            	t_para = JSON.parse(q_getId()[3]);
+	            }catch(e){
+	            }    
+	            if(t_para.length==0 || t_para.noa==undefined){
+	            }else{
+	            	$('#txtXnoa').val(t_para.noa);
+	            }
+	            
 				/*var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -104,10 +114,10 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;">
 			<div id="container">
-				<div id="q_report"></div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
