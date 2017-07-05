@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -27,29 +27,38 @@
 				$('#q_report').q_report({
 					fileName : 'z_tboat',
 					options : [{
-						//[1]
-						type : '0', name : 'accy', value : r_accy
+						type : '0', //[1]
+						name : 'path',
+						value : location.protocol + '//' +location.hostname + location.pathname.toLowerCase().replace('z_tboat.aspx','')
+					},{
+						type : '0', //[2]
+						name : 'db',
+						value : q_db
+					},{
+						type : '0', //[3]
+						name : 'project',
+						value : q_db
 					}, {
-						//[2][3]
-						type : '1', name : 'xnoa'
+						//[4]     1
+						type : '6', name : 'xnoa'
 					}, {
-						//[4]
-						type : '5', name : 'xtypea', value : [q_getPara('report.all')].concat(q_getPara('tboat.type').split(','))
+						//[5]     2
+						type : '8', name : 'xtypea', value : q_getPara('tboat.type').split(',')
 					}, {
-						//[5]
-						type : '6', name : 'xinvono'
-					}, {
-						//[6][7]
+						//[6][7]  3
 						type : '1', name : 'xtrandate'
 					}, {
-						//[8]
+						//[8]     4
 						type : '6', name : 'xstraddr'
 					}, {
-						//[9]
+						//[9]     5
 						type : '6', name : 'xendaddr'
 					}, {
-						//[10][11]
-						type : '2', name : 'cust', dbf : 'cust', index : 'noa,comp', src : 'cust_b.aspx'
+						//[10][11]6
+						type : '2', name : 'cust', dbf : 'cust', index : 'noa,nick', src : 'cust_b.aspx'
+					}, {
+						//[12][13]7
+						type : '2', name : 'cardeal', dbf : 'cardeal', index : 'noa,nick', src : 'cardeal_b.aspx'
 					}]
 				});
 				q_popAssign();
@@ -61,7 +70,7 @@
 				$('#txtXtrandate2').mask(r_picd);
 				//$('#txtXtrandate2').datepicker();
 
-				var t_date, t_year, t_month, t_day;
+				/*var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
 				t_year = t_date.getUTCFullYear() - 1911;
@@ -81,7 +90,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtXtrandate2').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtXtrandate2').val(t_year + '/' + t_month + '/' + t_day);*/
 			}
 
 			function q_boxClose(s2) {
