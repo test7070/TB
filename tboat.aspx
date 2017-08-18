@@ -20,7 +20,7 @@
 			var q_readonly = ['txtNoa','txtCust','txtMount','txtMoney','txtTax','txtTotal','txtWorker','txtWorker2'];
 			var q_readonlys = ['txtStraddr','txtEndaddr','txtTotal'];
 			var bbmNum = [['txtMount',10,0,1],['txtMoney',10,0,1],['txtTax',10,0,1],['txtTotal',10,0,1]];
-			var bbsNum = [['txtMount',10,0,1],['txtPrice',10,0,1],['txtTotal',10,0,1]];
+			var bbsNum = [['txtMount',10,0,1],['txtTotal',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -51,9 +51,9 @@
 				$('#txtTax').attr('readonly', true);
 				$('#txtTax').css('background-color', 'rgb(237,237,238)').css('color', 'green');
 				for(var j=0;j<q_bbsCount;j++){
-					t_mounts = dec($('#txtMount_'+j).val());
-					t_prices = dec($('#txtPrice_'+j).val());
-					t_totals = dec($('#txtTotal_'+j).val());
+					t_mounts = q_float('txtMount_'+j);
+					t_prices = q_float('txtPrice_'+j);
+					t_totals = q_float('txtTotal_'+j);
 					t_mount = q_add(t_mount,t_mounts);
 					t_totals = round(q_mul(t_mounts,t_prices),0);
 					switch($.trim(($('#cmbTaxtype').val()))){
@@ -520,7 +520,7 @@
 						<td style="width:130px;"><a id='lblStraddrno_s'> </a></td>
 						<td style="width:130px;"><a id='lblEndaddrno_s'> </a></td>
 						<td style="width:60px;"><a id='lblMount_s'> </a></td>
-						<td style="width:60px;"><a id='lblPrice_s'> </a></td>
+						<td style="width:80px;"><a id='lblPrice_s'> </a></td>
 						<td style="width:80px;"><a id='lblTotal_s'> </a></td>
 						<td style="width:120px;"><a id='lblMemo_s'>備註</a></td>
 					</tr>
