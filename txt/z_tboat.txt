@@ -125,6 +125,7 @@ z_tboat01:-- z_tboat.txt/z_tboat01
 	declare @t_bcardealno nvarchar(20) = case when '#non'=[12] then '' else [12] end
 	declare @t_ecardealno nvarchar(20) = case when '#non'=[13] then char(255) else [13] end
 	--------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------
 	declare @tmp table(
 		sel int identity(1,1)
 		,gno nvarchar(20)
@@ -181,6 +182,7 @@ z_tboat01:-- z_tboat.txt/z_tboat01
 	
 	select gno
 		,"<a href="+CHAR(34)+"JavaScript:q_box('tboat.aspx',' "+CHAR(59)+"noa=\'"+noa+"\'','95%','95%','"+LEFT(datea,3)+"')"+char(34)+">"+cast(recno as nvarchar)+"</a>" rr --序
+		,typea titlea
 		,cardeal a01
 		,trandate a02
 		,boatname a03
