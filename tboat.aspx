@@ -29,6 +29,7 @@
 			brwNowPage = 0;
 			brwKey = 'Noa';
 			brwCount2 = 8;
+			q_desc = 1;
 			
 			aPop = new Array(
 				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtNick', 'cust_b.aspx']
