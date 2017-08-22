@@ -35,6 +35,7 @@
 				,['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx']
 				,['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
 				,['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,nick', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx']
+				,['txtBoatname_', 'btnBoat_', 'boat', 'noa,boat,conn', 'txtBoatname_', 'boat_b.aspx']
 			);
 
 			$(document).ready(function() {
@@ -164,6 +165,12 @@
 					$('#lblNo_' + i).text(i + 1);
                 	if($('#btnMinus_' + i).hasClass('isAssign'))
                     	continue;
+                	$('#txtBoatname_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnBoat_'+n).click();
+                    });
                 	$('#txtCardealno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -536,7 +543,10 @@
 							<input type="button" id="btnCardeal.*" style="display:none;">
 						</td>
 						<td><input type="text" id="txtTrandate.*" class="txt c1"/></td>
-						<td><input type="text" id="txtBoatname.*" class="txt c1"/></td>
+						<td>
+							<input type="text" id="txtBoatname.*" class="txt c1"/>
+							<input type="button" id="btnBoat.*" style="display:none;"/>
+						</td>
 						<td><input type="text" id="txtShip.*" class="txt c1"/></td>
 						<td><input type="text" id="txtSpec.*" class="txt c1" list="listSpec"/></td>
 						<td><input type="text" id="txtCaseno.*" class="txt c1"/></td>
