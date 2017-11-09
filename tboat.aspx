@@ -519,7 +519,7 @@
 						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:120px;"><a id='lblCardeal_s'>車行</a></td>
-						<td style="width:80px;"><a id='lblTrandate_s'> </a></td>
+						<td style="width:100px;"><a id='lblTrandate_s'> </a></td>
 						<td style="width:110px;"><a id='lblBoatname_s'> </a></td>
 						<td style="width:80px;"><a id='lblShip_s'> </a></td>
 						<td style="width:80px;"><a id='lblSpec_s'> </a></td>
