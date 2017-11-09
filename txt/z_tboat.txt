@@ -98,6 +98,8 @@ z_tboat02:-- z_tboat.txt/z_tboat02
 		,a.prices b06
 		,a.totals b07
 		,a.caseno b08
+		,a.caseno2 b09
+		,a.memos b10
 		
 		,a.invodate c01
 		,a.invono c02
