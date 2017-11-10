@@ -16,6 +16,104 @@ z_tboat02:-- z_tboat.txt/z_tboat02
 	declare @t_bcardealno nvarchar(20) = case when '#non'=[12] then '' else [12] end
 	declare @t_ecardealno nvarchar(20) = case when '#non'=[13] then char(255) else [13] end
 	--------------------------------------------------------------------------------
+	declare @tmpa table(
+		sel int identity(1,1)
+		,custno nvarchar(20)
+		,noa nvarchar(20)
+		,typea nvarchar(20)
+		,invono nvarchar(20)
+		,invodate nvarchar(20)
+		,[money] float
+		,tax float
+		,total float
+	)
+	insert into @tmpa(custno,noa,typea,invono,invodate)
+	select isnull(b.custno,''),a.noa,isnull(b.typea,''),isnull(b.invono,''),isnull(b.invodate,'')
+	from tboats a
+	left join tboat b on a.noa=b.noa
+	where a.trandate between @t_btrandate and @t_etrandate
+	and b.custno between @t_bcustno and @t_ecustno
+	group by isnull(b.custno,''),a.noa,isnull(b.typea,''),isnull(b.invono,''),isnull(b.invodate,'')
+	
+	update @tmpa set [money]=ISNULL(b.[money],0),tax=ISNULL(b.tax,0),total=ISNULL(b.total,0)
+	from @tmpa a
+	left join tboat b on a.noa=b.noa
+	--------------------------------------------------------------------------------
+	declare @tmpb table(
+		sel int identity(1,1)
+		,custno nvarchar(20)
+		,typea nvarchar(max)
+		,invono nvarchar(max)
+		,invodate nvarchar(max)
+		,[money] float
+		,tax float
+		,total float
+	)
+	insert into @tmpb(custno,[money],tax,total)
+	select custno,SUM(ISNULL([money],0)),SUM(ISNULL([tax],0)),SUM(ISNULL([total],0)) 
+	from @tmpa group by custno
+	
+	declare @custno nvarchar(20)
+	declare @invono nvarchar(20)
+	declare @invodate nvarchar(20) 
+	declare @money float
+	declare @tax float
+	declare @total float
+	
+	declare @typea nvarchar(20)
+	
+	declare @t_invono nvarchar(max)
+	declare @t_invoDate nvarchar(max)
+	declare @t_typea nvarchar(max)
+	
+	declare cursor_table cursor for	
+	select custno from @tmpb group by custno
+	open cursor_table
+	fetch next from cursor_table
+	into @custno
+	while(@@FETCH_STATUS <> -1)
+	begin	
+		select @t_invono='',@t_invoDate='',@t_typea=''
+		
+		declare cursor_table2 cursor for	
+		select invono,invodate,[money],tax,total from @tmpa where custno=@custno order by invodate,invono
+		open cursor_table2
+		fetch next from cursor_table2
+		into @invono,@invodate,@money,@tax,@total
+		while(@@FETCH_STATUS <> -1)
+		begin	
+			set @t_invono = @t_invono+case when len(@t_invono)>0 then ',' else '' end+@invono
+			set @t_invodate = @t_invodate+case when len(@t_invodate)>0 then ',' else '' end+@invodate
+			
+			fetch next from cursor_table2
+			into @invono,@invodate,@money,@tax,@total
+		end
+		close cursor_table2
+		deallocate cursor_table2
+		
+		declare cursor_table2 cursor for	
+		select typea from @tmpa where custno=@custno and len(isnull(typea,''))>0 order by typea
+		open cursor_table2
+		fetch next from cursor_table2
+		into @typea
+		while(@@FETCH_STATUS <> -1)
+		begin	
+			set @t_typea = @t_typea+case when len(@t_typea)>0 then ',' else '' end+@typea
+			
+			fetch next from cursor_table2
+			into @typea
+		end
+		close cursor_table2
+		deallocate cursor_table2
+	
+		update @tmpb set invono=@t_invono,invodate=@t_invoDate,typea=@t_typea where custno=custno
+		
+		fetch next from cursor_table
+		into @custno
+	end
+	close cursor_table
+	deallocate cursor_table
+	
 	declare @tmp table(
 		sel int identity(1,1)
 		,gno nvarchar(20)
@@ -28,8 +126,8 @@ z_tboat02:-- z_tboat.txt/z_tboat02
 		,custno nvarchar(20)
 		,cust nvarchar(max)
 		,serial nvarchar(20)
-		,invono nvarchar(20)
-		,invodate nvarchar(20)
+		,invono nvarchar(max)
+		,invodate nvarchar(max)
 		,[money] float
 		,tax float
 		,[total] float
@@ -56,37 +154,38 @@ z_tboat02:-- z_tboat.txt/z_tboat02
 		,invono,invodate,[money],tax,total,memo
 		,cardealno,cardeal,trandate,boatname,ship,spec,caseno,caseno2
 		,straddrno,straddr,endaddrno,endaddr,mounts,prices,totals,memos)
-	select '1',1,a.noa,a.noq,b.datea,b.typea,b.custno,b.cust,b.serial
-		,b.invono,b.invodate,b.[money],b.tax,b.total,b.memo
+	select '1',1,a.noa,a.noq,b.datea,d.typea,b.custno,b.cust,b.serial
+		,d.invono,d.invodate,d.[money],d.tax,d.total,b.memo
 		,a.cardealno,a.cardeal,a.trandate,a.boatname,a.ship
 		,replace(a.spec,"~#$","'")
 		,a.caseno,a.caseno2
 		,a.straddrno,a.straddr,a.endaddrno,a.endaddr,a.mount,a.price,a.total,a.memo
 	from tboats a
 	left join tboat b on a.noa=b.noa
-	where a.noa = @t_noa
+	left join @tmpa c on a.noa=c.noa
+	left join @tmpb d on b.custno=d.custno
+	where c.noa is not null
 	order by a.noq
 	
 	-- g3
-	insert into @tmp(gno,pno,noa,noq,datea,typea,custno,cust,serial
-		,invono,invodate,[money],tax,total,memo)
-	select top 1 '3',3,noa,noq,datea,typea,custno,cust,serial
-		,invono,invodate,[money],tax,total,memo
+	insert into @tmp(gno,pno,custno,cust,invono,invodate,[money],tax,total)
+	select '3',3,custno,cust,invono,invodate,[money],tax,total
 	from @tmp
+	group by custno,cust,invono,invodate,[money],tax,total
+		
 	-- g4
-	insert into @tmp(gno,pno,noa,noq,datea,typea,custno,cust,serial
-		,invono,invodate,[money],tax,total,memo)
-	select top 1 '4',4,noa,noq,datea,typea,custno,cust,serial
-		,invono,invodate,[money],tax,total,memo
+	insert into @tmp(gno,pno,custno,cust,invono,invodate,[money],tax,total)
+	select '4',4,custno,cust,invono,invodate,[money],tax,total
 	from @tmp
+	group by custno,cust,invono,invodate,[money],tax,total
 	-- g5
-	insert into @tmp(gno,pno,noa,noq,datea,typea,custno,cust,serial
-		,invono,invodate,[money],tax,total,memo)
-	select top 1 '5',5,noa,noq,datea,typea,custno,cust,serial
-		,invono,invodate,[money],tax,total,memo
+	insert into @tmp(gno,pno,custno,cust,invono,invodate,[money],tax,total)
+	select '5',5,custno,cust,invono,invodate,[money],tax,total
 	from @tmp
+	group by custno,cust,invono,invodate,[money],tax,total
 	
 	select a.gno
+		,a.custno
 		,a.cust +' '+a.serial a01
 		,a.typea a02
 		
@@ -94,9 +193,9 @@ z_tboat02:-- z_tboat.txt/z_tboat02
 		,a.straddr b02
 		,a.endaddr b03
 		,a.spec b04
-		,a.mounts b05
-		,a.prices b06
-		,a.totals b07
+		,dbo.getComma(a.mounts,-1) b05
+		,dbo.getComma(a.prices,-1) b06
+		,dbo.getComma(a.totals,-1) b07
 		,a.caseno b08
 		,a.caseno2 b09
 		,a.memos b10
@@ -107,8 +206,8 @@ z_tboat02:-- z_tboat.txt/z_tboat02
 		,dbo.getComma(a.[tax],-1) c04
 		,dbo.getComma(a.[total],-1) c05
 	from @tmp a
-	left join cust b on a.custno=b.noa;
-
+	left join cust b on a.custno=b.noa
+	order by a.custno,a.gno,a.sel;
 
 z_tboat01:-- z_tboat.txt/z_tboat01    	
 	SET QUOTED_IDENTIFIER OFF
@@ -140,6 +239,7 @@ z_tboat01:-- z_tboat.txt/z_tboat01
 		,typea nvarchar(20)
 		,custno nvarchar(20)
 		,cust nvarchar(max)
+		,nick nvarchar(max)
 		
 		,cardealno nvarchar(20)
 		,cardeal nvarchar(50)
@@ -158,10 +258,10 @@ z_tboat01:-- z_tboat.txt/z_tboat01
 		,total float
 		,memo nvarchar(max)
 	)
-	insert into @tmp(gno,pno,noa,noq,datea,typea,custno,cust
+	insert into @tmp(gno,pno,noa,noq,datea,typea,custno,cust,nick
 		,cardealno,cardeal,trandate,boatname,ship,spec,caseno,caseno2
 		,straddrno,straddr,endaddrno,endaddr,mount,price,total,memo)
-	select '1',1,a.noa,a.noq,b.datea,b.typea,b.custno,b.cust
+	select '1',1,a.noa,a.noq,b.datea,b.typea,b.custno,b.cust,b.nick
 		,a.cardealno,a.cardeal,a.trandate,a.boatname,a.ship
 		,replace(a.spec,"~#$","'")
 		,a.caseno,a.caseno2
@@ -186,7 +286,7 @@ z_tboat01:-- z_tboat.txt/z_tboat01
 	select gno
 		,"<a href="+CHAR(34)+"JavaScript:q_box('tboat.aspx',' "+CHAR(59)+"noa=\'"+noa+"\'','95%','95%','"+LEFT(datea,3)+"')"+char(34)+">"+cast(recno as nvarchar)+"</a>" rr --序
 		,typea titlea
-		,cardeal a01
+		,nick a01
 		,trandate a02
 		,boatname a03
 		,ship a04

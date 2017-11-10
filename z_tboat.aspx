@@ -16,6 +16,9 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				$.datepicker.r_len=4;
+				$.datepicker.setDefaults($.datepicker.regional["ENG"]);
+				
 				q_getId();
 				q_gf('', 'z_tboat');
 			});
@@ -66,9 +69,9 @@
 				q_langShow();
 
 				$('#txtXtrandate1').mask(r_picd);
-				//$('#txtXtrandate1').datepicker();
+				$('#txtXtrandate1').datepicker();
 				$('#txtXtrandate2').mask(r_picd);
-				//$('#txtXtrandate2').datepicker();
+				$('#txtXtrandate2').datepicker();
 				
 				var t_para = new Array();
 	            try{
