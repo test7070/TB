@@ -19,7 +19,7 @@
 			q_tables = 's';
 			var q_name = "tran";
 			var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtTotal','txtTotal2','textMile','textAvg'];
-			var q_readonlys = ['txtOrdeno','txtNo2'];
+			var q_readonlys = ['txtOrdeno','txtNo2','txtStraddr'];
 			var q_readonlyt = [];
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']);
@@ -37,8 +37,8 @@
 			//q_xchg = 1;
 			brwCount2 = 7;
 			aPop = new Array(['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-				,['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx']
-				,['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
+				,['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
+				,['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
 				,['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
 				,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 				,['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick', 'txtCustno_,txtComp_,txtNick_', 'cust_b.aspx']
@@ -277,6 +277,19 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnEndaddr_'+n).click();
                     });
+                    
+                    $('#txtCasetype_' + i).change(function(e) {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_noa=$('#txtStraddrno_'+b_seq).val();
+                        var t_datea=$('#txtTrandate').val();
+                        var t_custno=$('#txtCustno_'+b_seq).val();
+                        var t_custunit=$('#txtCasetype_'+b_seq).val();
+                        var t_where = "where=^^ noa='"+t_noa+"' and custno='"+t_custno+"' and custunit='"+t_custunit+"' and datea=(select top 1 datea from addrs where noa='"+t_noa+"' and datea<='"+t_datea+"' and custno='"+t_custno+"' and custunit='"+t_custunit+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
+                        
+                    });
 				}
 				_bbsAssign();
 				$('#tbbs').find('tr.data').children().hover(function(e){
@@ -433,6 +446,17 @@
 						}
                 		q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
                 		break;
+                    case 'addrs':
+                        var as = _q_appendData("addrs", "", true);
+                        if (as[0] != undefined){
+                            for ( i = 0; i < q_bbsCount; i++) {
+                                if ($('#txtFill_'+i).val()=='F'){
+                                   $('#txtTotal_'+i).val(as[0].custprice); 
+                                }
+                                    
+                            }
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -909,7 +933,8 @@
 					</td>
 					
 					
-					<td><input type="text" id="txtFill.*" list="listEf" style="width:95%;text-align: center;"/></td>
+					<!--td><input type="text" id="txtFill.*" list="listEf" style="width:95%;text-align: center;"/></td-->
+					<td><input type="text" id="txtFill.*" style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtCasetype.*" list="listCasetype" style="width:95%;"/></td>
 					<td>
 						<input type="text" id="txtCaseno.*" style="float:left;width:95%;"/>
