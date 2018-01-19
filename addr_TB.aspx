@@ -33,8 +33,8 @@
             brwNowPage = 0;
             brwKey = 'Noa';
 
-            aPop = new Array(['txtStraddrno', 'lblStraddr', 'addr2', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr2_b.aspx'],
-                             ['txtEndaddrno', 'lblEndaddr', 'addr2', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr2_b.aspx'],
+            aPop = new Array(['txtStraddrno', 'lblStraddr', 'addr2', 'noa,post', 'txtStraddrno,txtStraddr', 'addr2_b.aspx'],
+                             ['txtEndaddrno', 'lblEndaddr', 'addr2', 'noa,post', 'txtEndaddrno,txtEndaddr', 'addr2_b.aspx'],
                              ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
                              ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx'],
                              ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']);

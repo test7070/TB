@@ -282,11 +282,33 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_noa=$('#txtStraddrno_'+b_seq).val();
-                        var t_datea=$('#txtTrandate').val();
-                        var t_custno=$('#txtCustno_'+b_seq).val();
-                        var t_custunit=$('#txtCasetype_'+b_seq).val();
-                        var t_where = "where=^^ noa='"+t_noa+"' and custno='"+t_custno+"' and custunit='"+t_custunit+"' and datea=(select top 1 datea from addrs where noa='"+t_noa+"' and datea<='"+t_datea+"' and custno='"+t_custno+"' and custunit='"+t_custunit+"' order by datea desc ) ^^";
+                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
+                        
+                    });
+                    
+                    $('#txtCustno_' + i).change(function(e) {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
+                        
+                    });
+                    
+                    $('#txtStraddrno_' + i).change(function(e) {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);  
+                    });
+                    
+                    $('#txtFill_' + i).change(function(e) {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
                         q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
                         
                     });
@@ -450,10 +472,9 @@
                         var as = _q_appendData("addrs", "", true);
                         if (as[0] != undefined){
                             for ( i = 0; i < q_bbsCount; i++) {
-                                if ($('#txtFill_'+i).val()=='F'){
-                                   $('#txtTotal_'+i).val(as[0].custprice); 
-                                }
-                                    
+                                if ($('#txtFill_'+i).val()=='F' && $('#txtStraddrno_'+i).val()==as[0].noa && $('#txtCustno_'+i).val()==as[0].custno && $('#txtCasetype_'+i).val()==as[0].custunit){
+                                   $('#txtTotal_'+i).val(dec(as[0].custprice)); 
+                                } 
                             }
                         }
                         break;
