@@ -19,7 +19,7 @@
 			q_tables = 's';
 			var q_name = "tran";
 			var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtTotal','txtTotal2','textMile','textAvg'];
-			var q_readonlys = ['txtOrdeno','txtNo2','txtStraddr'];
+			var q_readonlys = ['txtOrdeno','txtNo2'];
 			var q_readonlyt = [];
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']);
@@ -37,8 +37,8 @@
 			//q_xchg = 1;
 			brwCount2 = 7;
 			aPop = new Array(['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
-				,['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx']
-				,['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx']
+				,['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,post', 'txtStraddrno_,textStraddr_', 'addr2_b.aspx']
+				,['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,post', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
 				,['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
 				,['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 				,['txtCustno_', 'btnCust_', 'cust', 'noa,comp,nick', 'txtCustno_,txtComp_,txtNick_', 'cust_b.aspx']
@@ -282,8 +282,8 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
-                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
+                        /*var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);*/
                         
                     });
                     
@@ -291,8 +291,8 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
-                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
+                       /*var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);*/
                         
                     });
                     
@@ -300,16 +300,23 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
-                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);  
+                        /*var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);*/ 
+                    });
+                    
+                    $('#txtEndaddrno_' + i).change(function(e) {
+                        t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                        $('#txtStraddr_' + b_seq).val($('#txtStraddr_' + b_seq).val()+'-'+$('#txtEndaddr_' + b_seq).val());
                     });
                     
                     $('#txtFill_' + i).change(function(e) {
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                        var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
-                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);
+                        /*var t_where = "where=^^ noa='"+$('#txtStraddrno_' + b_seq).val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' and datea=(select top 1 datea from addrs where noa='"+$('#txtStraddrno_' + b_seq).val()+"' and datea<='"+$('#txtTrandate').val()+"' and custno='"+$('#txtCustno_' + b_seq).val()+"' and custunit='"+$('#txtCasetype_' + b_seq).val()+"' order by datea desc ) ^^";
+                        q_gt('addrs', t_where, 0, 0, 0, "", r_accy,1);*/
                         
                     });
 				}
@@ -671,6 +678,12 @@
 						var n = b_seq;
 						refreshWV(n);
 						break;
+				    case 'txtStraddrno_':
+                        $('#txtStraddr_'+b_seq).val($('#textStraddr_'+b_seq).val());
+                        break;
+				    case 'txtEndaddrno_':
+                        $('#txtStraddr_'+b_seq).val($('#textStraddr_'+b_seq).val()+' - '+$('#txtEndaddr_'+b_seq).val());
+                        break;
 					default:
 						break;
 				}
@@ -945,10 +958,12 @@
 						<input type="button" id="btnBoat.*" style="display:none;"/>
 					</td>
 					<td>
-						<input type="text" id="txtStraddrno.*" style="float:left;width:30%;"/>
-						<input type="text" id="txtStraddr.*" style="float:left;width:60%;"/>
+						<input type="text" id="txtStraddrno.*" style="float:left;width:48%;"/>
+						<input type="text" id="txtEndaddrno.*" style="float:left;width:48%;"/>
+						<input type="text" id="txtStraddr.*" style="float:left;width:98%;"/>
 						<input type="button" id="btnStraddr.*" style="display:none;"/>
-						<input type="text" id="txtEndaddrno.*" style="display:none;float:left;width:30%;"/>
+						<!--input type="text" id="txtEndaddrno.*" style="display:none;float:left;width:30%;"/-->
+						<input type="text" id="textStraddr.*" style="display:none;float:left;width:60%;"/>
 						<input type="text" id="txtEndaddr.*" style="display:none;float:left;width:60%;"/>
 						<input type="button" id="btnEndaddr.*" style="display:none;"/>
 					</td>
