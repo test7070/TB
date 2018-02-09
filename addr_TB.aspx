@@ -21,7 +21,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "addr";
-            var q_readonly = [];
+            var q_readonly = ['txtAddr'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtCustprice', 10, 3], ['txtTggprice', 10, 3], ['txtDriverprice', 10, 3], ['txtDriverprice2', 10, 3]];
@@ -33,8 +33,8 @@
             brwNowPage = 0;
             brwKey = 'Noa';
 
-            aPop = new Array(['txtStraddrno', 'lblStraddr', 'addr2', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr2_b.aspx'],
-                             ['txtEndaddrno', 'lblEndaddr', 'addr2', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr2_b.aspx'],
+            aPop = new Array(['txtStraddrno', 'lblStraddr', 'addr2', 'noa,post', 'txtStraddrno,txtStraddr', 'addr2_b.aspx'],
+                             ['txtEndaddrno', 'lblEndaddr', 'addr2', 'noa,post', 'txtEndaddrno,txtEndaddr', 'addr2_b.aspx'],
                              ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
                              ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx'],
                              ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']);
@@ -80,7 +80,29 @@
                 },function(e){
                     $(this).css('background','white');
                 });
+    
+                $('#txtStraddrno').change(function() {
+                     change_addr();
+                });
+                
+                $('#txtStraddrno').change(function() {
+                     change_addr();
+                }); 
             }
+            
+            function change_addr(){
+                var t_str,t_end;
+                t_str=$('#txtStraddr').val();
+                t_end=$('#txtEndaddr').val();
+                if(!emp($('#txtStraddr').val()) && !emp($('#txtEndaddr').val())){
+                      $('#txtAddr').val(t_str+'-'+t_end);
+                }else if(!emp($('txtEndaddr').val())){
+                      $('#txtAddr').val(t_end);
+                }else{
+                      $('#txtAddr').val(t_str);
+                }
+            }
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -124,7 +146,8 @@
             }
             function btnOk() {
                 Lock(1,{opacity:0});
-                $('#txtNoa').val($.trim($('#txtNoa').val()));       
+                $('#txtNoa').val($.trim($('#txtNoa').val()));
+                change_addr();       
                 if(q_cur==1){
                     t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                     q_gt('addr', t_where, 0, 0, 0, "checkAddrno_btnOk", r_accy);
@@ -204,6 +227,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                change_addr();
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -421,10 +445,6 @@
                         <td colspan="2"><input id="txtNoa" type="text" class="txt c1" /></td>
                     </tr>
                     <tr>
-                        <td><span> </span><a id='lblAddr' class="lbl"> </a></td>
-                        <td colspan="3"><input id="txtAddr" type="text" class="txt c1" /></td>
-                    </tr>
-                    <tr>
                         <td><span> </span><a id='lblStraddr' class="lbl btn"> </a></td>
                         <td colspan="3">
                             <input id="txtStraddrno" type="text" style="float:left; width:40%;"/>
@@ -445,7 +465,10 @@
                             <input id="txtProduct" type="text" style="float:left; width:60%;"/>
                         </td>
                     </tr>
-                    
+                    <tr>
+                        <td><span> </span><a id='lblAddr' class="lbl"> </a></td>
+                        <td colspan="3"><input id="txtAddr" type="text" class="txt c1" /></td>
+                    </tr>
                 </table>
             </div>
         </div>
