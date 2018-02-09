@@ -32,7 +32,7 @@
 			q_desc = 1;
 			
 			aPop = new Array(
-				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtNick', 'cust_b.aspx']
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,serial', 'txtCustno,txtCust,txtNick,txtSerial', 'cust_b.aspx']
 				,['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr2_b.aspx']
 				,['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr2_b.aspx']
 				,['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,nick', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx']
@@ -81,8 +81,7 @@
 							t_tax = round(dec($('#txtTax').val()),0);
 							t_money = q_add(t_money,t_totals);
 							break;
-						case '6': // 作廢-清空資料
-							t_money = 0, t_tax = 0;
+						case '6': // 作廢
 							break;
 						default:
 							break;
@@ -151,7 +150,7 @@
 					$('#txtWorker2').val(r_name);
 				var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
 				if (s1.length == 0 || s1 == "AUTO")
-					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tboat2') + q_date(), '/', ''));
+					q_gtnoa(q_name, replaceAll('M' + q_date(), '/', ''));
 				else
 					wrServer(s1);
 			}
@@ -348,7 +347,7 @@
 				height: 35px;
 			}
 			.tbbm tr td {
-				width: 9%;
+				width: 12%;
 			}
 			.tbbm .tdZ {
 				width: 2%;
@@ -474,6 +473,12 @@
 							<input id="txtCust" type="text" class="txt"  style="width:69%;" />
 							<input id="txtNick" type="text" class="txt"  style="display:none;" />
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a class="lbl">統一編號</a></td>
+						<td><input id="txtSerial" type="text" class="txt c1"/></td>
+						<td><span> </span><a class="lbl">發票抬頭</a></td>
+						<td colspan="3"><input id="txtBuyer" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblInvono" class="lbl"> </a></td>
