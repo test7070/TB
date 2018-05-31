@@ -17,10 +17,10 @@
 
 			q_tables = 's';
 			var q_name = "tboat";
-			var q_readonly = ['txtNoa','txtCust','txtMount','txtMoney','txtTax','txtTotal','txtWorker','txtWorker2'];
-			var q_readonlys = ['txtStraddr','txtEndaddr','txtTotal'];
-			var bbmNum = [['txtMount',10,0,1],['txtMoney',10,0,1],['txtTax',10,0,1],['txtTotal',10,0,1]];
-			var bbsNum = [['txtMount',10,0,1],['txtTotal',10,0,1]];
+			var q_readonly = ['txtNoa','txtCust','txtMount','txtMoney','txtTax','txtTotal','txtTotal2','txtWorker','txtWorker2'];
+			var q_readonlys = ['txtStraddr','txtEndaddr'];
+			var bbmNum = [['txtMount',10,0,1],['txtMoney',10,0,1],['txtTax',10,0,1],['txtTotal',10,0,1],['txtTotal2',10,0,1]];
+			var bbsNum = [['txtMount',10,0,1],['txtTotal',10,0,1],['txtTotal2',10,0,1]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -47,17 +47,20 @@
 			});
 
 			function sum(){
-				var t_mount=0,t_money=0,t_tax=0,t_total=0;
-				var t_mounts=0,t_prices=0,t_totals=0;
+				var t_mount=0,t_money=0,t_tax=0,t_total=0,t_total2=0;
+				var t_mounts=0,t_prices=0,t_totals=0,t_total2s=0;
 				var t_taxrate = parseFloat(q_getPara('sys.taxrate')) / 100;
 				$('#txtTax').attr('readonly', true);
 				$('#txtTax').css('background-color', 'rgb(237,237,238)').css('color', 'green');
 				for(var j=0;j<q_bbsCount;j++){
+					//2018/05/31  total改為自行輸入,不由數量*單價計算
+					
 					t_mounts = q_float('txtMount_'+j);
-					t_prices = q_float('txtPrice_'+j);
+					//t_prices = q_float('txtPrice_'+j);
 					t_totals = q_float('txtTotal_'+j);
+					t_total2s = q_float('txtTotal2_'+j);
 					t_mount = q_add(t_mount,t_mounts);
-					t_totals = round(q_mul(t_mounts,t_prices),0);
+					t_total2 += t_total2s; 
 					switch($.trim(($('#cmbTaxtype').val()))){
 						case '1': // 應稅
 							t_tax = q_add(t_tax,round(q_mul(t_totals,t_taxrate), 0));
@@ -93,6 +96,7 @@
 				$('#txtMoney').val(t_money);
 				$('#txtTax').val(t_tax);
 				$('#txtTotal').val(t_total);
+				$('#txtTotal2').val(t_total2);
 			}
 
 			function main() {
@@ -201,6 +205,9 @@
 						sum();
 					});
 					$('#txtTotal_'+i).change(function(){
+						sum();
+					});
+					$('#txtTotal2_'+i).change(function(){
 						sum();
 					});
 					$('#txtCaseno_'+i).change(function(){
@@ -502,8 +509,8 @@
 						<td><input id="txtTax" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblTotal2" class="lbl">應付帳款</a></td>
+						<td><input id="txtTotal2" type="text" class="txt c1 num"/></td>
 						<td> </td>
 						<td> </td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
@@ -538,8 +545,9 @@
 						<td style="width:130px;"><a id='lblStraddrno_s'> </a></td>
 						<td style="width:130px;"><a id='lblEndaddrno_s'> </a></td>
 						<td style="width:60px;"><a id='lblMount_s'> </a></td>
-						<td style="width:80px;"><a id='lblPrice_s'> </a></td>
-						<td style="width:80px;"><a id='lblTotal_s'> </a></td>
+						<!--<td style="width:80px;"><a id='lblPrice_s'> </a></td>-->
+						<td style="width:80px;"><a>應收</a></td>
+						<td style="width:80px;"><a>應付</a></td>
 						<td style="width:120px;"><a id='lblMemo_s'>備註</a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
@@ -573,8 +581,9 @@
 							<input type="button" id="btnEndaddr.*" style="display:none;">
 						</td>
 						<td><input type="text" id="txtMount.*" class="txt num c1"/></td>
-						<td><input type="text" id="txtPrice.*" class="txt num c1"/></td>
+						<!--<td><input type="text" id="txtPrice.*" class="txt num c1"/></td>-->
 						<td><input type="text" id="txtTotal.*" class="txt num c1"/></td>
+						<td><input type="text" id="txtTotal2.*" class="txt num c1"/></td>
 						<td><input type="text" id="txtMemo.*" class="txt c1"/></td>
 					</tr>
 				</table>
